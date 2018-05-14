@@ -1,0 +1,18 @@
+
+<form autocomplete="off" novalidate class="login-form" [formGroup]="form">
+
+    <fieldset>
+        <legend>Logowanie</legend>
+        <div class="form-field">
+            <label>Wpisz email:</label>
+            <input name="email" formControlName="email">
+        </div>
+        <div class="form-field">
+            <label>Wpisz hasło:</label>
+            <input name="password" formControlName="password" type="password">
+        </div>
+    </fieldset>
+
+    <button (click)="login()">Login</button>
+
+</form>
