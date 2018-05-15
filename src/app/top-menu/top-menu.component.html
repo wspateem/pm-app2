@@ -18,16 +18,32 @@
           </span>
       
           <span class="example-spacer"></span>
-          
-         
+          <mat-menu #kartMenu="matMenu">
+            <button mat-menu-item routerLinkActive="menu-active" routerLink="on-login" *ngIf="authInfo?.isLoggedIn()">Osobowa</button>
+            <button mat-menu-item routerLinkActive="menu-active" routerLink="on-login" *ngIf="authInfo?.isLoggedIn()">Finansowa</button>
+            
+          </mat-menu>
+          <mat-menu #ksieMenu="matMenu">
+            <button mat-menu-item routerLinkActive="menu-active" routerLink="on-login" *ngIf="authInfo?.isLoggedIn()">Chrzty</button>
+            <button mat-menu-item routerLinkActive="menu-active" routerLink="on-login" *ngIf="authInfo?.isLoggedIn()">I Komunia</button>
+            <button mat-menu-item routerLinkActive="menu-active" routerLink="on-login" *ngIf="authInfo?.isLoggedIn()">Bierzmoawanie</button>
+            <button mat-menu-item routerLinkActive="menu-active" routerLink="on-login" *ngIf="authInfo?.isLoggedIn()">Śluby</button>
+            <button mat-menu-item routerLinkActive="menu-active" routerLink="on-login" *ngIf="authInfo?.isLoggedIn()">Zgony</button>
+            
+          </mat-menu>
+          <mat-menu #adminMenu="matMenu">
+            <button mat-menu-item routerLinkActive="menu-active" routerLink="register" *ngIf="authInfo?.isLoggedIn()">Dodaj użytkownika</button>
+               
+          </mat-menu>
+        
           <mat-menu #appMenu="matMenu">
 
                 <button mat-menu-item routerLink="login" routerLinkActive="menu-active" *ngIf="!authInfo?.isLoggedIn()" >Logowanie</button>
-                <button mat-menu-item routerLinkActive="menu-active" routerLink="register" *ngIf="authInfo?.isLoggedIn()">Dodaj użytkownika</button>
-                <button mat-menu-item routerLinkActive="menu-active" routerLink="on-login2" *ngIf="authInfo?.isLoggedIn()">Kartoteki</button>
+                <button mat-menu-item [matMenuTriggerFor]="kartMenu" *ngIf="authInfo?.isLoggedIn()">Kartoteki</button>
+                <button mat-menu-item [matMenuTriggerFor]="ksieMenu" *ngIf="authInfo?.isLoggedIn()">Księgi</button>
+                <button mat-menu-item [matMenuTriggerFor]="adminMenu" *ngIf="authInfo?.isLoggedIn()">Administracja</button>
                 <button mat-menu-item *ngIf="authInfo?.isLoggedIn()" (click)="logout()">Wyloguj się</button>
-           
-              </mat-menu>
+          </mat-menu>
               <button mat-button [matMenuTriggerFor]="appMenu">
                     Menu
                   </button>
