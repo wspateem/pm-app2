@@ -10,12 +10,9 @@ import {Router} from "@angular/router";
 })
 export class ResetComponent {
   form:FormGroup;
-  
   constructor(private fb:FormBuilder, private authService: AuthService,
     private router:Router) {
       this.form = this.fb.group({
-        email: ['',Validators.required],
-        oldpassword: ['',Validators.required],
         newpassword: ['',Validators.required],
         confirm: ['',Validators.required]
     });
@@ -31,10 +28,10 @@ export class ResetComponent {
       this.authService.updatePassword(val.newpassword)
           .subscribe(
               () => {
-                  alert('User password update successfully !');
+                  alert('Zmieniono hasło!');
                   this.router.navigateByUrl('/home');
               },
-              err => alert(err)
+              err => alert('Coś poszło nie tak, spróbuj ponownie.')
           );
   }
 
