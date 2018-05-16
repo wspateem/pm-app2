@@ -20,7 +20,10 @@ import { OnLoginComponent } from './on-login/on-login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { MatMenuModule, MatButtonModule, MatIconModule, MatCardModule } from '@angular/material';
-
+import { ResetComponent } from './reset/reset.component';
+import {FlexLayoutModule} from "@angular/flex-layout";
+import { PersonsComponent } from './persons/persons.component';
+import { PersonsService } from './persons/persons.service';
 
 
 @NgModule({
@@ -31,7 +34,9 @@ import { MatMenuModule, MatButtonModule, MatIconModule, MatCardModule } from '@a
     SafeUrlPipe,
     LoginComponent,
     RegisterComponent,
-    OnLoginComponent
+    OnLoginComponent,
+    ResetComponent,
+    PersonsComponent
   ],
   imports: [
     BrowserModule,
@@ -46,10 +51,11 @@ import { MatMenuModule, MatButtonModule, MatIconModule, MatCardModule } from '@a
       MatMenuModule,
     MatButtonModule,
     MatIconModule,
-    MatCardModule
+    MatCardModule,
+    FlexLayoutModule
       
   ],
-  providers: [AuthService, AuthGuard],
+  providers: [AuthService, AuthGuard, PersonsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

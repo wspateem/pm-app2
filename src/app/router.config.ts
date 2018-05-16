@@ -6,6 +6,8 @@ import {LoginComponent} from "./login/login.component";
 import {OnLoginComponent} from "./on-login/on-login.component";
 import {RegisterComponent} from "./register/register.component";
 import {AuthGuard} from "./security/auth.guard";
+import { ResetComponent } from "./reset/reset.component";
+import { PersonsComponent } from "./persons/persons.component";
 
 export const routerConfig : Route[] = [
     {
@@ -18,12 +20,22 @@ export const routerConfig : Route[] = [
         canActivate: [AuthGuard]
     },
     {
-        'path': 'login',
+        path: 'login',
         component: LoginComponent
     },
     {
         path: 'register',
         component: RegisterComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'persons',
+        component: PersonsComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'reset',
+        component: ResetComponent,
         canActivate: [AuthGuard]
     },
     {

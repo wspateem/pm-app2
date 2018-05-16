@@ -10,7 +10,7 @@ import {Router} from "@angular/router";
 })
 export class LoginComponent implements OnInit {
 
-  form:FormGroup;
+  form: FormGroup;
 
   constructor(private fb:FormBuilder, private authService: AuthService,
                 private router:Router) {
@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
 
       this.authService.login(formValue.email, formValue.password)
           .subscribe(
-              () => this.router.navigate(['/on-login']),
+              () => this.router.navigate(['/home']),
               alert
           );
 

@@ -3,7 +3,9 @@ import {Observable, Subject, BehaviorSubject} from "rxjs/Rx";
 import {AngularFireAuth } from "angularfire2/auth";
 import {AuthInfo} from "./auth-info";
 import {Router} from "@angular/router";
+
 import * as firebase from 'firebase/app';
+
 
 
 @Injectable()
@@ -28,6 +30,10 @@ export class AuthService {
 
     signUp(email, password) {
         return this.fromFirebaseAuthPromise(this.afAuth.auth.createUserWithEmailAndPassword(email, password));
+    }
+
+    updatePassword(newPassword) {
+        return this.fromFirebaseAuthPromise(this.afAuth.user.updatePassword(newPassword));
     }
 
     /*

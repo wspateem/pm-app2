@@ -8,13 +8,12 @@ import {AuthInfo} from "../security/auth-info";
   styleUrls: ['./top-menu.component.css']
 })
 export class TopMenuComponent implements OnInit {
-
+    private isBtnVisibleOsoby=true;
 
     
   authInfo: AuthInfo;
 
   constructor(private authService:AuthService) {
-
 
 
   }
