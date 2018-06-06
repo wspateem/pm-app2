@@ -13,8 +13,11 @@ import { PersonDetailComponent } from './persons/person-detail/person-detail.com
 import { Component } from '@angular/core';
 import { PersonSearchComponent } from './persons/person-search/person-search.component';
 import { PersonFormComponent } from './persons/person-form/person-form.component';
+<<<<<<< HEAD
 import { FamiliesListComponent } from './families/families-list/families-list.component';
 import { FamilyDetailComponent } from './families//family-detail/family-detail.component';
+=======
+>>>>>>> c44ffd47ea44a0aeb11fe03f615b1607a481705c
 
 export const routerConfig: Route[] = [
     {
@@ -31,6 +34,7 @@ export const routerConfig: Route[] = [
         canActivate: [AuthGuard]
     },
     {
+<<<<<<< HEAD
         path: 'app-families-list',
         children: [
             {
@@ -59,6 +63,11 @@ export const routerConfig: Route[] = [
         path: 'person-search/:id',
         children: [
 
+=======
+        path: 'person-search/:id',
+        children: [
+           
+>>>>>>> c44ffd47ea44a0aeb11fe03f615b1607a481705c
             {
                 path: '',
                 component: PersonDetailComponent,
@@ -78,7 +87,11 @@ export const routerConfig: Route[] = [
                     }
                 ]
             }
+<<<<<<< HEAD
 
+=======
+           
+>>>>>>> c44ffd47ea44a0aeb11fe03f615b1607a481705c
         ]
       },
       {
@@ -112,11 +125,14 @@ export const routerConfig: Route[] = [
     canActivate: [AuthGuard]
 
     },
+<<<<<<< HEAD
     {
         path: 'app-families-list',
         component: FamiliesListComponent,
         canActivate: [AuthGuard]
     },
+=======
+>>>>>>> c44ffd47ea44a0aeb11fe03f615b1607a481705c
 
     {
         path: '',

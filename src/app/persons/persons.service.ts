@@ -14,16 +14,27 @@ import {FirebaseListFactoryOpts} from 'angularfire2/interfaces';
 @Injectable()
 export class PersonsService {
     sdkDb: any;
+<<<<<<< HEAD
     sdkDb2: any;
 
     constructor(private db: AngularFireDatabase, @Inject(FirebaseApp) fb: FirebaseApp,
     private http: Http) {
+=======
+  
+    constructor(private db: AngularFireDatabase, @Inject(FirebaseApp) fb: FirebaseApp,
+    private http: Http) {
+
+this.sdkDb = fb.database().ref('persons/');
+>>>>>>> c44ffd47ea44a0aeb11fe03f615b1607a481705c
 
 this.sdkDb = fb.database().ref('persons/');
 this.sdkDb2 = fb.database().ref();
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> c44ffd47ea44a0aeb11fe03f615b1607a481705c
 }
 
 
@@ -126,6 +137,7 @@ createNewPerson(person:any): Observable<any> {
     let dataToSave = {};
 
     dataToSave[ newPersonKey] = personToSave;
+<<<<<<< HEAD
       return this.firebaseUpdate(dataToSave);
   }
   createNewPerson2(familyId:string, person:any): Observable<any> {
@@ -144,6 +156,15 @@ createNewPerson(person:any): Observable<any> {
 }
 
 
+=======
+  
+
+
+    return this.firebaseUpdate(dataToSave);
+    
+
+}
+>>>>>>> c44ffd47ea44a0aeb11fe03f615b1607a481705c
 isPersonAlive(personId: string): Observable<Person> {
     return this.db.object(`persons/${personId}.alive`);
 }
