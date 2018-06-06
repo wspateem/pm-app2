@@ -9,7 +9,7 @@ console.log('Running batch server ...');
 initializeApp(firebaseConfig);
 
 auth()
-    .signInWithEmailAndPassword('admin@angular-university.io', 'test123')
+    .signInWithEmailAndPassword('osekltd@gmail.com', 'osekltd')
     .then(runConsumer)
     .catch(onError);
 
@@ -23,9 +23,8 @@ function runConsumer() {
 
     console.log("Running consumer ...");
 
-    const lessonsRef = database().ref("lessons");
-    const lessonsPerCourseRef = database().ref("lessonsPerCourse");
-
+    const personRef = database().ref("persons");
+    
     const queueRef = database().ref('queue');
 
 
@@ -33,20 +32,18 @@ function runConsumer() {
 
         console.log('received delete request ...',data);
 
-        const deleteLessonPromise = lessonsRef.child(data.lessonId).remove();
+        const deletePersonPromise = personRef.child(data.personId).remove();
 
-        const deleteLessonPerCoursePromise =
-            lessonsPerCourseRef.child(`${data.courseId}/${data.lessonId}`).remove();
-
-        Promise.all([deleteLessonPromise, deleteLessonPerCoursePromise])
+        
+        Promise.all([deletePersonPromise])
             .then(
                 () => {
-                    console.log("lesson deleted");
+                    console.log("person deleted");
                     resolve();
                 }
             )
             .catch(() => {
-            console.log("lesson deletion in error");
+            console.log("person deletion in error");
             reject();
         });
 
