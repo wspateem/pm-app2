@@ -1,8 +1,11 @@
-
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, Input, EventEmitter, Output} from '@angular/core';
 import {FamiliesService} from '../families.service';
 import {Observable} from 'rxjs/Rx';
 import {Family} from '../prototype/family';
+import {NewFamilyComponent } from '../new-family/new-family.component';
+import {tap} from 'rxjs/operators';
+import {AuthService} from '../../security/auth.service';
+import {AuthInfo} from '../../security/auth-info';
 
 @Component({
   selector: 'app-families-list',
@@ -10,13 +13,26 @@ import {Family} from '../prototype/family';
   styleUrls: ['./families-list.component.css']
 })
 export class FamiliesListComponent implements OnInit {
-  families$: Observable<Family[]>;
+  @Input()
+  families: Family[];
 
-  constructor(private familiesService: FamiliesService) { }
+  @Output('family')
+  familyEmitter = new EventEmitter<Family>();
+  
+
+  authInfo: AuthInfo;
+
+  constructor(private authService:AuthService) { }
 
   ngOnInit() {
-  this.families$ = this.familiesService.findAllFamilies();
+
+    this.authService.authInfo$.subscribe(authInfo =>  this.authInfo = authInfo);
   }
+  selectFamily(family:Family) {
+    this.familyEmitter.emit(family);
 
-
+}
+logout() {
+  this.authService.logout();
+}
 }

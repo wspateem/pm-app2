@@ -1,0 +1,50 @@
+
+<mat-toolbar color="secondary">   
+  <button  routerLink="new" routerLinkActive="menu-active" *ngIf="!authInfo?.isLoggedIn()" >Nowa kartoteka osobowa</button> 
+
+</mat-toolbar><main class="l-main l-sample-app">
+
+
+<div>
+
+  <div class="main-container">
+      <div class="list"  style="text-align: left">
+
+<div >
+   <form [formGroup]="form" autocomplete="off" validate class="'app-new-family">
+
+
+
+<fieldset>
+    <legend><h3>Nowa karta rodziny</h3></legend><table>
+        <tr><td><div>Nazwisko rodowe:</div><div> &nbsp;</div></td>
+          <td> <input name="title" type="text" formControlName="lname"  placeholder="Nazwisko">
+           <div  class="field-error-message" *ngIf="!form.controls.lname.valid && 
+           (form.controls.lname.touched || form.controls.lname.dirty)" style="font-size: xx-small">pole obowiązkowe, min. 2 litery
+           </div><div class="field-error-message" style="font-size:xx-small"  
+           *ngIf="form.controls.lname.valid || ((!form.controls.lname.valid && 
+               !form.controls.lname.dirty))">&nbsp;</div>
+          
+       
+          
+       </td>
+         
+       </tr>  
+       <tr><td><button    (click)="save()" routerLink="/family-search" [disabled]="!form.controls.lname.valid"> Zapisz</button></td><td><button  routerLink="/family-search">Anuluj</button></tr>
+
+    
+    
+    </table>
+
+
+</fieldset>
+
+
+
+
+    </form>
+    </div>
+    </div>
+    </div>
+    </div>
+    </main>

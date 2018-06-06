@@ -1,4 +1,4 @@
-<h2>{{ (course$ | async)?.lname }}</h2>
+<h2>Rodzina: {{ (family$ | async)?.lname }} - tu coś będzie</h2>
 
 <div class="app-persons-list-container v-h-center-block-parent">
 
@@ -10,9 +10,36 @@
                 (person)="navigateToPerson($event)"></app-persons-list>
 
   <div class="tools-bar">
-      <button routerLink="new" [queryParams]="{familyId: (family$ | async)?.$key }">
-          Nowy członek
+      <button routerLink="/new" [queryParams]="{familyId: (family$ | async)?.$key }">
+          Dodaj nową osobę
       </button>
+      
   </div>
 
+
+  <div class="tools-bar">
+    <button routerLink="/person-search" [queryParams]="{familyId: (family$ | async)?.$key }">
+        Dodaj istniejącą osobę
+    </button>
+    
+</div>
+<div class="main-container">
+          
+                   
+                    
+
+                    
+                    
+    <h3> <P>Szukaj: &nbsp; <input class="search-bar" placeholder="Nazwisko"(keyup)="search(input.value)" #input> 
+      </P></h3>
+    <p>Klikni, żeby zobaczyć szczegóły.</p>
+       
+       <div class="app-persons-list-container v-h-center-block-parent">
+       
+        <app-person-family *ngIf="filtered" [persons]="filtered"></app-person-family>
+       
+       </div>
+       
+
+</div>
 </div>
