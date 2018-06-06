@@ -8,7 +8,6 @@ console.log('Initizalizing Firebase database ... ');
 initializeApp(firebaseConfig);
 
 
-<<<<<<< HEAD
 const familiesRef = database().ref('families');
 const personssRef = database().ref('persons');
 
@@ -52,30 +51,6 @@ dbData.families.forEach( family => {
 
     personFamilyAssociation.set(true);
   });
-=======
-const personsRef = database().ref('persons');
-
-
-
-dbData.persons.forEach( person => {
-
-  console.log('adding person');
-
-  const personRef = personsRef.push({
-      lname: person.lname,
-      fname: person.fname,
-      sname: person.sname,
-      sex: person.sex,
-      birthdate: person.birthdate,
-      alive: person.alive
-  });
-
-  
- 
- 
-
-
->>>>>>> c44ffd47ea44a0aeb11fe03f615b1607a481705c
 });
 
 

@@ -1,5 +1,4 @@
 export const dbData = {
-<<<<<<< HEAD
   "families": [
     {
       "lname": "Osmałek",
@@ -41,26 +40,6 @@ export const dbData = {
       ]
     }
     
-=======
-  "persons": [
-    {
-      "lname": "Kowalski",
-      "fname": "Jan",
-      "sname": "Mariusz",
-      "sex": "m",
-      "birthdate": "1961-01-01",
-      "alive": true
-     
-    },
-    {
-      "lname": "Nowak",
-      "fname": "August",
-      "sname": "Jarosław",
-      "sex": "m",
-      "birthdate": "1932-01-01",
-      "alive": false
-    }
->>>>>>> c44ffd47ea44a0aeb11fe03f615b1607a481705c
   ]
 };
 
