@@ -1,27 +1,36 @@
-import {combineLatest as observableCombineLatest} from 'rxjs';
+
 import {mergeMap, filter, map, switchMap, tap} from 'rxjs/operators';
-import {Injectable} from '@angular/core';
-import {AngularFireDatabase} from "angularfire2/database";
-import {Observable} from "rxjs/Rx";
-import {Person} from "./person";
+import {Injectable, Inject} from '@angular/core';
+import {AngularFireDatabase} from 'angularfire2/database';
+import {Observable, Subject} from 'rxjs/Rx';
+import {Person} from './prototype/person';
+import {FirebaseApp} from 'angularfire2';
+import {firebaseConfig} from '../../environments/firebase.config';
+import {Http} from '@angular/http';
+import {FirebaseListFactoryOpts} from 'angularfire2/interfaces';
 
 
-import {FirebaseListFactoryOpts} from "angularfire2/interfaces";
 
 @Injectable()
 export class PersonsService {
+    sdkDb: any;
+  
+    constructor(private db: AngularFireDatabase, @Inject(FirebaseApp) fb: FirebaseApp,
+    private http: Http) {
+
+this.sdkDb = fb.database().ref('persons/');
 
 
 
-    constructor(private db:AngularFireDatabase) {
-    }
+}
 
-    findAllPersons():Observable<Person[]> {
+
+    findAllPersons(): Observable<Person[]> {
         return this.db.list('persons').pipe(map(Person.fromJsonArray));
     }
 
 
-    findPersonByLname(personLname:string): Observable<Person> {
+    findPersonByLname(personLname: string): Observable<Person> {
         return this.db.list('persons', {
             query: {
                 orderByChild: 'lname',
@@ -30,7 +39,26 @@ export class PersonsService {
         }).pipe(
         map(results => results[0]));
     }
-    findPersonByFname(personFname:string): Observable<Person> {
+
+    findPersonById(personId:string):Observable<Person> {
+        return this.db.object(`persons/${personId}`)
+        .map(Person.fromJson);
+    }
+    findPersonByKey(personKeys: string): Observable<Person> {
+        return this.db.list('persons', {
+            query: {
+                orderByKey: true,
+                startAt: personKeys,
+                limitToFirst: 1
+            }
+        }).pipe(
+            map(results => results[0]));
+    }
+    findPersonByKey1($key: string) {
+        return this.db.object('persons/' + '$key');
+    }
+
+    findPersonByFname(personFname: string): Observable<Person> {
       return this.db.list('persons', {
           query: {
               orderByChild: 'fname',
@@ -39,7 +67,7 @@ export class PersonsService {
       }).pipe(
       map(results => results[0]));
   }
-  findPersonBySname(personSname:string): Observable<Person> {
+  findPersonBySname(personSname: string): Observable<Person> {
     return this.db.list('persons', {
         query: {
             orderByChild: 'sname',
@@ -47,11 +75,71 @@ export class PersonsService {
         }
     }).pipe(
     map(results => results[0]));
+
+
+
+
 }
+
+
+firebaseUpdate(dataToSave) {
+    const subject = new Subject();
+
+    this.sdkDb.update(dataToSave)
+        .then(
+            val => {
+                subject.next(val);
+                subject.complete();
+
+
+            },
+            err => {
+                subject.error(err);
+                subject.complete();
+            }
+        );
+
+
+    return subject.asObservable();
+}
+
+sevePerson(personId: string, person): Observable<any> {
+
+    const personToSave = Object.assign({}, person);
+    delete(personToSave.$key);
+
+    let dataToSave = {};
+    dataToSave[`${personId}`] = personToSave;
+
+    return this.firebaseUpdate(dataToSave);
+
+
+}
+createNewPerson(person:any): Observable<any> {
+
+    const personToSave = Object.assign({}, person);
+
+    const newPersonKey = this.sdkDb.push().key;
    
+    let dataToSave = {};
+
+    dataToSave[ newPersonKey] = personToSave;
+  
 
 
-   
+    return this.firebaseUpdate(dataToSave);
+    
+
+}
+isPersonAlive(personId: string): Observable<Person> {
+    return this.db.object(`persons/${personId}.alive`);
+}
 
 
+
+
+
+findPersonById2(personId:string):Observable<Person> {
+    return this.db.object(`persons/${personId}`)
+    .map(Person.fromJson);}
 }

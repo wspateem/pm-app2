@@ -1,42 +1,4 @@
 
-  <mat-toolbar color="primary">
-
-        <!-- <button mat-button routerLink="/">
-         <mat-icon>home</mat-icon> 
-             {{title}}</button>-->
-          
- <p>Kartoteka osobowa</p>
-         <!-- This fills the remaining space of the current row -->
-         <span class="fill-remaining-space"></span>
-         <div fxLayout="row" fxShow="false" fxShow.gt-sm>
-                <button mat-button routerLinkActive="menu-active" routerLink="on-login">Wyszukaj</button>
-                <button mat-button routerLinkActive="menu-active" routerLink="on-login">Dodaj</button>
-            
-         </div>
-         <button mat-button [mat-menu-trigger-for]="menu" fxHide="false" fxHide.gt-sm>
-          <mat-icon>menu</mat-icon>
-         </button>
-     
-     </mat-toolbar>
-     
-   
-    
- 
-     <mat-menu x-position="before" #menu="matMenu">
-            <button mat-menu-item routerLinkActive="menu-active" routerLink="on-login">Wyszukaj</button>
-            <button mat-menu-item routerLinkActive="menu-active" routerLink="on-login">Dodaj</button>
-         
-         <!--<button mat-menu-item>Help</button>-->
-     </mat-menu>
-      
-      
-      <main class="l-main l-sample-app">
-
-            <div>
-        
-                <div class="main-container">
-                    <div class="list">
-
 <table class="persons-list card card-strong" item-width="200">
   <tr>
       <td class="lname" style="font-size: 10pt; font-weight: bold; width: 200px; border-style: none; text-align:left">
@@ -64,9 +26,5 @@
       
   </tr>
 </table>
-</div>
-</div>
 
-</div>
-
-</main>
+<router-outlet></router-outlet>
