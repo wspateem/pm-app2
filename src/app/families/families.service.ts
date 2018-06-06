@@ -41,7 +41,16 @@ findFamilyById(familyId:string):Observable<Family> {
         return this.db.object(`families/${familyId}`)
         .map(Family.fromJson);
     }
-
+    findFamilyByKey(familyKeys: string): Observable<Family> {
+        return this.db.list('families', {
+            query: {
+                orderByKey: true,
+                startAt: familyKeys,
+                limitToFirst: 1
+            }
+        }).pipe(
+            map(results => results[0]));
+    }
     findPersonssForPersonKeys(personKeys$: Observable<string[]>) :Observable<Person[]> {
       return personKeys$.pipe(
           map(pspf => pspf.map(personKeys => this.db.object('persons/' + personKeys)) ),
@@ -69,5 +78,36 @@ map( pspf => pspf.map(ppf => ppf.$key) ),);
 
       return this.findPersonssForPersonKeys(firstPagePersonKeys$);
 }
+firebaseUpdate(dataToSave) {
+    const subject = new Subject();
+
+    this.sdkDb.update(dataToSave)
+        .then(
+            val => {
+                subject.next(val);
+                subject.complete();
+
+
+            },
+            err => {
+                subject.error(err);
+                subject.complete();
+            }
+        );
+
+
+    return subject.asObservable();
+}
+createNewFamily(family:any): Observable<any> {
+
+    const familyToSave = Object.assign({}, family);
+
+    const newFamilyKey = this.sdkDb.push().key;
+   
+    let dataToSave = {};
+
+    dataToSave[ newFamilyKey] = familyToSave;
+      return this.firebaseUpdate(dataToSave);
+  }
 
 }
