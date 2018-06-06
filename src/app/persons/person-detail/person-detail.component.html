@@ -1,0 +1,102 @@
+      
+
+     <mat-toolbar color="secondary">   
+         <button  routerLink="../../person-search" routerLinkActive="menu-active" *ngIf="!authInfo?.isLoggedIn()" >Kartoteka osobowa</button> 
+        <button mat-button  routerLinkActive="menu-active" *ngIf="!authInfo?.isLoggedIn()" >-&nbsp;&nbsp;&nbsp; informacje o:&nbsp;  {{(person$ | async)?.lname}}  {{(person$ | async)?.fname}}</button>
+    </mat-toolbar><main class="l-main l-sample-app">
+<main class="l-main l-sample-app">
+
+    <div>
+
+        <div class="main-container">
+            <div class="list"  style="text-align: left" >
+                   
+<div *ngIf="person$ | async as person" class="person-detail"><table class="person-detail" *ngIf="!docPrint">
+      
+        <fieldset class="person-detail">
+        <legend><h3>Karta osobowa</h3></legend>
+    <tr *ngIf="person.deathdate" class="person-detail"><td class="person-detail"><h2 style="color: red">Nie żyje</h2></td></tr>
+  
+   
+    <tr class="person-detail"><td class="person-detail">Nazwisko:<div>&nbsp;</div></td>
+        <td class="person-detail"><input name="title" type="text"  placeholder="{{(person$ | async)?.lname}}"  disabled><div>&nbsp;</div></td>
+    </tr>
+    <tr class="person-detail"><td class="person-detail">Imię:<div>&nbsp;</div></td>
+
+        <td class="person-detail"><input name="title" type="text"  placeholder="{{(person$ | async)?.fname}}"  disabled><div>&nbsp;</div></td>
+    </tr>
+    <tr *ngIf="person.sname" class="person-detail"><td>Drugie imię:<div>&nbsp;</div></td>
+
+        <td><input name="title" type="text"  placeholder="{{(person$ | async)?.sname}}"  disabled><div>&nbsp;</div></td>     
+    </tr>
+    <tr *ngIf="person.street"><td>Ulica:<div>&nbsp;</div></td>
+
+        <td><input name="title" type="text"  placeholder="{{(person$ | async)?.street}}"  disabled><div>&nbsp;</div></td>     
+    </tr>
+    <tr *ngIf="person.postalcode"><td>Kod pocztowy:<div>&nbsp;</div></td>
+
+        <td><input name="title" type="text"  placeholder="{{(person$ | async)?.postalcode}}"  disabled><div>&nbsp;</div></td>     
+    </tr>
+    <tr *ngIf="person.city"><td>Poczta:<div>&nbsp;</div></td>
+
+        <td><input name="title" type="text"  placeholder="{{(person$ | async)?.city}}"  disabled><div>&nbsp;</div></td>     
+    </tr>
+    <tr *ngIf="person.birthdate"><td>Data urodzenia:<div>&nbsp;</div></td>
+
+        <td><input name="title" type="text"  placeholder="{{(person$ | async)?.birthdate}}"  disabled><div>&nbsp;</div></td>
+    </tr>
+    <tr *ngIf="person.baptismdate"><td>Data chrztu:<div>&nbsp;</div></td>
+
+        <td><input name="title" type="text"  placeholder="{{(person$ | async)?.baptismdate}}"  disabled><div>&nbsp;</div></td>
+    </tr>
+    <tr  *ngIf="person.communiondate"><td>Data I Komuni Św.:<div>&nbsp;</div></td>
+
+        <td><input name="title" type="text"  placeholder="{{(person$ | async)?.communiondate}}"  disabled><div>&nbsp;</div></td>
+    </tr>
+    <tr *ngIf="person.confirmationdate"><td>Data bierzmowania:<div>&nbsp;</div></td>
+
+        <td><input name="title" type="text"  placeholder="{{(person$ | async)?.confirmationdate}}"  disabled><div>&nbsp;</div></td>
+    </tr>
+    <tr *ngIf="person.weddingdate"><td>Data ślubu:<div>&nbsp;</div></td>
+
+        <td><input name="title" type="text"  placeholder="{{(person$ | async)?.weddingdate}}"  disabled><div>&nbsp;</div></td>
+    </tr>
+    <tr *ngIf="person.deathdate"><td>Data śmierci:<div>&nbsp;</div></td>
+
+    
+        <td><input name="title" type="text"  placeholder="{{(person$ | async)?.deathdate}}"  disabled><div>&nbsp;</div></td>
+        
+    </tr>
+    <tr><td><button    [routerLink]="person.$key"  *ngIf="!person.deathdate"> Edytuj</button></td>
+        <td><button  routerLink="../../person-search">Powrót</button></td>
+    <td><button (click)="doc() ">Zaświadczenia</button></td>
+    </tr>
+   
+    </fieldset>
+    </table>
+    <div *ngIf="docPrint">
+
+            <div id="print-section">
+                    // your html stuff that you want to print
+                  </div>
+                  <button (click)="print()">print</button>
+      
+                  
+
+      </div>
+  
+
+</div>
+
+
+
+   
+
+    
+</div>
+
+</div>
+
+</div>
+
+</main>

@@ -231,7 +231,9 @@ ul.top-menu > li > a.menu-active {
     display: inline-block;
     max-width: 270px;
     vertical-align: top;
+    text-align: center;
     margin-right: 50px;
+    margin-left: 50px;
 }
 
 

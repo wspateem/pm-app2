@@ -34,39 +34,61 @@
 
             <div>
         
-                <div class="main-container">
-                    <div class="list">
-
-<table class="persons-list card card-strong" item-width="200">
+             
+                    
+<table class="app-persons card card-strong" item-width="200" style="text-align: center">
   <tr>
-      <td class="lname" style="font-size: 10pt; font-weight: bold; width: 200px; border-style: none; text-align:left">
-          Nazwisko</td>
-    <td class="lname" style="font-size: 10pt; font-weight: bold; width: 200px; border-style: none; text-align:left">
-        Imie</td>
         <td class="lname" style="font-size: 10pt; font-weight: bold; width: 200px; border-style: none; text-align:left">
+            Nazwisko</td>
+          <td class="lname" style="font-size: 10pt; font-weight: bold; width: 150px; border-style: none; text-align:left">
+            Imie</td>
+        <td class="lname" style="font-size: 10pt; font-weight: bold; width: 150px; border-style: none; text-align:left">
             Drugie imie</td>
+        <td class="street" style="font-size: 10pt; font-weight: bold; width: 150px; border-style: none; text-align:left">
+            Ulica</td>
+        <td class="city" style="font-size: 10pt; font-weight: bold; width: 150px; border-style: none; text-align:left">
+            Kod i miasto</td>
+        <td class="birthdate" style="font-size: 10pt; font-weight: bold; width: 150px; border-style: none; text-align:left">
+            Data ur.</td>
+        <td class="baptismdate" style="font-size: 10pt; font-weight: bold; width: 150px; border-style: none; text-align:left">
+            Data chrztu</td>
+        <td class="communiondate" style="font-size: 10pt; font-weight: bold; width: 15%; border-style: none; text-align:left">
+            Data I Komuni Św.</td>
+        <td class="confirmationdate" style="font-size: 10pt; font-weight: bold; width: 150px; border-style: none; text-align:left">
+            Data Bierzmowania</td>
+        <td class="weddingdate" style="font-size: 10pt; font-weight: bold; width: 150px; border-style: none; text-align:left">
+            Data ślubu</td>
+        <td class="alive" style="font-size: 10pt; font-weight: bold; width: 50px; border-style: none; text-align:center">
+            Żyje?</td>
+        <td class="deathdate" style="font-size: 10pt; font-weight: bold; width: 150px; border-style: none; text-align:left">
+            Data śmierci</td>
   </tr>
-  <tr class="person-summary" *ngFor="let person of (persons$ | async)">
-      <td class="lname" style="font-size: 10pt; width: 200px; border-style: none; text-align:left">
-     
-        {{person.lname}}
+  <tr class="person-summary" *ngFor="let person of (persons$ | async)" (click)="selectPerson(person)" >
+    <td class="lname" style="font-size: 10pt; width: 200px; border-style: none; text-align:left">{{person.lname}}</td>
+    <td class="fname" style="font-size: 10pt; width: 150px; border-style: none; text-align:left">{{person.fname}}</td>
+    <td class="sname" style="font-size: 10pt; width: 150px; border-style: none; text-align:left">{{person.sname}}</td>
+    <td class="street" style="font-size: 10pt; width: 150px; border-style: none; text-align:left">{{person.street}}</td>
+    <td class="city" style="font-size: 10pt; width: 150px; border-style: none; text-align:left">{{person.postalcode}}&nbsp;{{person.city}}</td>
+    <td class="birthdate" style="font-size: 10pt; width: 150px; border-style: none; text-align:left">{{person.birthdate}}</td>
+    <td class="baptismdate" style="font-size: 10pt; width: 150px; border-style: none; text-align:left">{{person.baptismdate}}</td>
+    <td class="communiondate" style="font-size: 10pt; width: 150px; border-style: none; text-align:left">{{person.communiondate}}</td>
+    <td class="confirmationdate" style="font-size: 10pt; font-weight: bold; width: 150px; border-style: none; text-align:left">{{person.confirmationdate}}</td>
+    <td class="weddingdate" style="font-size: 10pt; font-weight: bold; width: 150px; border-style: none; text-align:left">{{person.weddingdate}}</td>
+    <td class="alive" style="font-size: 10pt; width: 50px; border-style: none; text-align:left">
         
-      </td>
-      <td class="fname" style="font-size: 10pt; width: 200px; border-style: none; text-align:left">
-          {{person.fname}}
-      </td>
-      <td class="sname" style="font-size: 10pt; width: 200px; border-style: none; text-align:left">
-          {{person.sname}}
-      </td>
-      <td>
-          <button >Edytuj</button>
-      </td>
+        <input type="checkbox" name="food" [checked]="person.alive" disabled>
+    </td>
+
+    <td class="deathdate" style="font-size: 10pt; font-weight: bold; width: 150px; border-style: none; text-align:left">{{person.deathdate}}</td>
+    <td><button routerLink="../edit">Edit Person</button></td>
       
   </tr>
 </table>
-</div>
-</div>
+
 
 </div>
+
+
+
 
 </main>

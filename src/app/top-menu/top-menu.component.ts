@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthService} from "../security/auth.service";
-import {AuthInfo} from "../security/auth-info";
+import {AuthService} from '../security/auth.service';
+import {AuthInfo} from '../security/auth-info';
 
 @Component({
   selector: 'top-menu',
@@ -8,12 +8,12 @@ import {AuthInfo} from "../security/auth-info";
   styleUrls: ['./top-menu.component.css']
 })
 export class TopMenuComponent implements OnInit {
-    private isBtnVisibleOsoby=true;
+    private isBtnVisibleOsoby = true;
 
-    
+
   authInfo: AuthInfo;
 
-  constructor(private authService:AuthService) {
+  constructor(private authService: AuthService) {
 
 
   }

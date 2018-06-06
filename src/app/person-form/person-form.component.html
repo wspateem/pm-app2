@@ -1,0 +1,80 @@
+<form [formGroup]="form" autocomplete="off" novalidate class="app-person-form">
+
+    <fieldset>
+        <legend>Person</legend>
+        <div class="form-field">
+            <label>Nazwisko:</label>
+            <input name="title" formControlName="lname">
+            <div class="field-error-message"
+                 *ngIf="isErrorVisible('name','required')">Pole obowiązkowe</div>
+        </div>
+        <div class="form-field">
+            <label>Imie:</label>
+            <input name="title" formControlName="fname">
+            <div class="field-error-message" *ngIf="isErrorVisible('fname','required')">Pole obowiązkowe</div>
+        </div>
+        <div class="form-field">
+            <label>Drugie imie:</label>
+            <input name="title" formControlName="sname">
+            
+            
+        </div>
+        <div class="form-field">
+            <label>Ulica i numer domu/mieszkania:</label>
+            <input name="title" formControlName="street">
+            <div class="field-error-message" *ngIf="isErrorVisible('street','required')">Pole obowiązkowe</div>
+        </div>
+        <div class="form-field">
+            <label>Miasto:</label>
+            <input name="title" formControlName="city">
+            <div class="field-error-message" *ngIf="isErrorVisible('city','required')">Pole obowiązkowe</div>
+        </div>
+        <div class="form-field">
+            <label>Kod pocztowy:</label>
+            <input name="title" formControlName="postalcode">
+            <div class="field-error-message" *ngIf="isErrorVisible('postalcode','required')">Pole obowiązkowe</div>
+        </div>
+        <div class="form-field">
+            <label>Płeć:</label>
+            <input name="title" formControlName="sex">
+            
+        </div>
+        <div class="form-field">
+            <label>Data urodzenia:</label>
+            <input name="title" formControlName="birthdate">
+            
+        </div>
+        <div class="form-field">
+            <label>Data chrztu:</label>
+            <input name="title" formControlName="baptismdate">
+            
+        </div>
+        <div class="form-field">
+            <label>Data I Kom. Św.:</label>
+            <input name="title" formControlName="communiondate">
+            
+        </div>
+        <div class="form-field">
+            <label>Data bierzmowania:</label>
+            <input name="title" formControlName="confirmationdate">
+            
+        </div>
+        <div class="form-field">
+            <label>Data ślubu:</label>
+            <input name="title" formControlName="weddingdate">
+            
+        </div>
+        <div class="form-field">
+            <label>Żyje?</label>
+            <input  type="checkbox" name="title" formControlName="alive">
+            
+            
+        </div>
+        <div class="form-field">
+            <label>Data śmierci:</label>
+            <input name="title" formControlName="deathdate">
+            
+        </div>
+    </fieldset>
+
+</form>

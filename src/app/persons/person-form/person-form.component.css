@@ -1,0 +1,12 @@
+.person-form {
+  width: 400px;
+}
+
+
+.field-error-message {
+  text-align: left
+}
+
+button:disabled{
+  color: #ffffff;
+}

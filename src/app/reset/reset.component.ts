@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {Validators, FormGroup, FormBuilder} from "@angular/forms";
-import {AuthService} from "../security/auth.service";
-import {Router} from "@angular/router";
+import {Validators, FormGroup, FormBuilder} from '@angular/forms';
+import {AuthService} from '../security/auth.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-reset',
@@ -9,17 +9,17 @@ import {Router} from "@angular/router";
   styleUrls: ['./reset.component.css']
 })
 export class ResetComponent {
-  form:FormGroup;
-  constructor(private fb:FormBuilder, private authService: AuthService,
-    private router:Router) {
+  form: FormGroup;
+  constructor(private fb: FormBuilder, private authService: AuthService,
+    private router: Router) {
       this.form = this.fb.group({
-        newpassword: ['',Validators.required],
-        confirm: ['',Validators.required]
+        newpassword: ['', Validators.required],
+        confirm: ['', Validators.required]
     });
     }
     isPasswordMatch() {
       const val = this.form.value;
-      return val && val.newpassword && val.newpassword == val.confirm;
+      return val && val.newpassword && val.newpassword === val.confirm;
 
     }
     updatePassword() {

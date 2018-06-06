@@ -1,0 +1,27 @@
+
+           <!--
+<p>
+<img width="400" height="400" src="../../assets/loading.gif">
+</p>-->
+
+<table class="table app-persons-list card card-strong">
+    <tbody><tr>
+            <td class="lp" style="font-size: 10pt; font-weight: bold; width: 50px; border-style: none; text-align:center">
+                    &nbsp; LP</td>
+        <td class="lp" style="font-size: 10pt; font-weight: bold; width: 150px; border-style: none; text-align:left">Nazwisko</td>
+        <td class="lp" style="font-size: 10pt; font-weight: bold; width: 150px; border-style: none; text-align:left">Imie</td>
+        <td class="lp" style="font-size: 10pt; font-weight: bold; width: 150px; border-style: none; text-align:left">Drugie imie</td>
+        <td class="lp" style="font-size: 10pt; font-weight: bold; width: 150px; border-style: none; text-align:left">Data urodzenia</td></tr>
+        <td class="lp" style="font-size: 10pt; font-weight: bold; width: 150px; border-style: none; text-align:left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <tr *ngFor="let person of persons; let i = index"  [routerLink]="person.$key">
+        <td  class="lname" style="font-size: 10pt; width: 50px; border-style: none; text-align:center">&nbsp;{{i+1}}.</td>
+        <td class="lp" style="font-size: 10pt; font-weight: bold; width: 150px; border-style: none; text-align:left">{{person.lname}} </td>
+
+        <td class="lp" style="font-size: 10pt; font-weight: bold; width: 150px; border-style: none; text-align:left">{{person.fname}}</td>
+        <td class="lp" style="font-size: 10pt; font-weight: bold; width: 150px; border-style: none; text-align:left">{{person.sname}}</td>
+        <td class="lp" style="font-size: 10pt; font-weight: bold; width: 150px; border-style: none; text-align:left">{{person.birthdate}}</td>
+        
+   </tr>
+    </tbody>
+</table>
+

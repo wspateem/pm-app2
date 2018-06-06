@@ -1,0 +1,31 @@
+
+      <mat-toolbar color="secondary">   
+          <button routerLink="../person-search" routerLinkActive="menu-active" *ngIf="!authInfo?.isLoggedIn()" >Kartoteka osobowa</button> 
+          </mat-toolbar><main class="l-main l-sample-app">
+
+
+        <div>
+    
+            <div class="main-container">
+          
+                   
+                    
+
+                    
+                    
+                 <h3> <P>Szukaj: &nbsp; <input class="search-bar" placeholder="Nazwisko"(keyup)="search(input.value)" #input> 
+                    lub <button routerLink="../new">Dodaj nową osobę</button></P></h3>
+                 <p>Klikni, żeby zobaczyć szczegóły.</p>
+                    
+                    <div class="app-persons-list-container v-h-center-block-parent">
+                    
+                        <app-persons-list *ngIf="filtered" [persons]="filtered"></app-persons-list>
+                    
+                    </div>
+                    
+
+</div>
+
+</div>
+
+</main>

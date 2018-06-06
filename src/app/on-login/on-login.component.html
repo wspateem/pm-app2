@@ -5,6 +5,12 @@
         <div>
     
             <div class="main-container">
+                    <input class="search-bar" placeholder="Search"(keyup)="search(input.value)" #input>
+<div class="app-persons-container v-h-center-block-parent">
+
+        <app-persons *ngIf="filtered" [persons]="filtered"></app-persons>
+    
+    </div>
                 <div class="list">
 <p>
  <img width="400" height="400" src="../../assets/loading.gif">
