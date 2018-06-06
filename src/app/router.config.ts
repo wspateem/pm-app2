@@ -13,11 +13,10 @@ import { PersonDetailComponent } from './persons/person-detail/person-detail.com
 import { Component } from '@angular/core';
 import { PersonSearchComponent } from './persons/person-search/person-search.component';
 import { PersonFormComponent } from './persons/person-form/person-form.component';
-<<<<<<< HEAD
 import { FamiliesListComponent } from './families/families-list/families-list.component';
-import { FamilyDetailComponent } from './families//family-detail/family-detail.component';
-=======
->>>>>>> c44ffd47ea44a0aeb11fe03f615b1607a481705c
+import { FamilyDetailComponent } from './families/family-detail/family-detail.component';
+import { NewFamilyComponent } from './families/new-family/new-family.component';
+import { FamilySearchComponent} from './families/family-search/family-search.component';
 
 export const routerConfig: Route[] = [
     {
@@ -34,40 +33,14 @@ export const routerConfig: Route[] = [
         canActivate: [AuthGuard]
     },
     {
-<<<<<<< HEAD
-        path: 'app-families-list',
-        children: [
-            {
-                path: ':id',
-                children: [
-                    {
-                        path: '',
-                        component: FamilyDetailComponent,
-                        canActivate: [AuthGuard]
-                    },
-                    {
-                        path: 'new',
-                        component: NewPersonComponent,
-                        canActivate: [AuthGuard]
-                    }
-                ]
-            },
-            {
-                path: '',
-                component: FamiliesListComponent,
-                canActivate: [AuthGuard]
-            }
-        ]
-},
+        path: 'new-family',
+        component: NewFamilyComponent,
+        canActivate: [AuthGuard]
+    },
     {
         path: 'person-search/:id',
         children: [
 
-=======
-        path: 'person-search/:id',
-        children: [
-           
->>>>>>> c44ffd47ea44a0aeb11fe03f615b1607a481705c
             {
                 path: '',
                 component: PersonDetailComponent,
@@ -87,17 +60,54 @@ export const routerConfig: Route[] = [
                     }
                 ]
             }
-<<<<<<< HEAD
 
-=======
-           
->>>>>>> c44ffd47ea44a0aeb11fe03f615b1607a481705c
+        ]
+      },
+      {
+        path: 'family-search/:id',
+        children: [
+
+            {
+                path: '',
+                component: FamilyDetailComponent,
+                canActivate: [AuthGuard]
+            },
+            {
+                path: ':id',
+                children: [
+
+                   {
+                    path: '',
+                    component: PersonDetailComponent,
+                    canActivate: [AuthGuard]
+                    },
+                    {
+                    path: ':id2',
+                    children: [
+                        {
+                            path: '',
+                            component: PersonFormComponent,
+                            canActivate: [AuthGuard],
+                            resolve: {
+                                person: PersonResolver
+                              }
+                        }
+                    ]
+                }
+                ]
+            }
+
         ]
       },
       {
           path: 'persons',
           component: PersonsListComponent,
           canActivate: [AuthGuard]
+      },
+      {
+        path: 'families',
+        component: FamiliesListComponent,
+        canActivate: [AuthGuard]
       },
 
     {
@@ -111,6 +121,11 @@ export const routerConfig: Route[] = [
         canActivate: [AuthGuard]
     },
     {
+        path: 'view-family',
+        component: FamilyDetailComponent,
+        canActivate: [AuthGuard]
+    },
+    {
         path: 'reset',
         component: ResetComponent,
         canActivate: [AuthGuard]
@@ -120,19 +135,21 @@ export const routerConfig: Route[] = [
         component: PersonSearchComponent,
         canActivate: [AuthGuard]
     },
-    { path: 'person-form',
-    component: PersonFormComponent,
-    canActivate: [AuthGuard]
-
+    {
+        path: 'family-search',
+        component: FamilySearchComponent,
+        canActivate: [AuthGuard]
     },
-<<<<<<< HEAD
+    { 
+        path: 'person-form',
+        component: PersonFormComponent,
+        canActivate: [AuthGuard]
+    },
     {
         path: 'app-families-list',
         component: FamiliesListComponent,
         canActivate: [AuthGuard]
     },
-=======
->>>>>>> c44ffd47ea44a0aeb11fe03f615b1607a481705c
 
     {
         path: '',
