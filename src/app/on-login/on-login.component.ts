@@ -10,7 +10,6 @@ import {AuthInfo} from "../security/auth-info";
 })
 
 export class OnLoginComponent implements OnInit {
-    private isBtnVisibleOsoby = true;
 
   authInfo: AuthInfo;
   constructor(private authService:AuthService) {
@@ -21,7 +20,7 @@ export class OnLoginComponent implements OnInit {
   
 
   ngOnInit() {
-    
+
 
       this.authService.authInfo$.subscribe(authInfo =>  this.authInfo = authInfo);
 
