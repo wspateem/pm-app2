@@ -33,20 +33,20 @@
     
     <mat-menu  #kartMenu="matMenu" >
         <button mat-menu-item routerLinkActive="menu-active" routerLink="person-search" *ngIf="authInfo?.isLoggedIn()">Osobowa</button>
-        <button mat-menu-item routerLinkActive="menu-active" routerLink="home" *ngIf="authInfo?.isLoggedIn()"(click)="isBtnVisibleOsoby = true">Finansowa</button>
+        <button mat-menu-item routerLinkActive="menu-active" routerLink="app-families-list" *ngIf="authInfo?.isLoggedIn()">Rodzinna</button>
         
       </mat-menu>
       <mat-menu   #ksieMenu="matMenu">
-          <button mat-menu-item routerLinkActive="menu-active" routerLink="on-login" *ngIf="authInfo?.isLoggedIn()" (click)="isBtnVisibleOsoby = true">Chrzty</button>
-          <button mat-menu-item routerLinkActive="menu-active" routerLink="on-login" *ngIf="authInfo?.isLoggedIn()" (click)="isBtnVisibleOsoby = true">I Komunia</button>
-          <button mat-menu-item routerLinkActive="menu-active" routerLink="on-login" *ngIf="authInfo?.isLoggedIn()" (click)="isBtnVisibleOsoby = true">Bierzmoawanie</button>
-          <button mat-menu-item routerLinkActive="menu-active" routerLink="on-login" *ngIf="authInfo?.isLoggedIn()" (click)="isBtnVisibleOsoby = true">Śluby</button>
-          <button mat-menu-item routerLinkActive="menu-active" routerLink="on-login" *ngIf="authInfo?.isLoggedIn()"(click)="isBtnVisibleOsoby = true">Zgony</button>
+          <button mat-menu-item routerLinkActive="menu-active" routerLink="on-login" *ngIf="authInfo?.isLoggedIn()" >Chrzty</button>
+          <button mat-menu-item routerLinkActive="menu-active" routerLink="on-login" *ngIf="authInfo?.isLoggedIn()" >I Komunia</button>
+          <button mat-menu-item routerLinkActive="menu-active" routerLink="on-login" *ngIf="authInfo?.isLoggedIn()" >Bierzmoawanie</button>
+          <button mat-menu-item routerLinkActive="menu-active" routerLink="on-login" *ngIf="authInfo?.isLoggedIn()" >Śluby</button>
+          <button mat-menu-item routerLinkActive="menu-active" routerLink="on-login" *ngIf="authInfo?.isLoggedIn()">Zgony</button>
           
         </mat-menu>
         <mat-menu  x-position="before"  #adminMenu="matMenu">
-            <button mat-menu-item routerLinkActive="menu-active" routerLink="register" *ngIf="authInfo?.isLoggedIn()" (click)="isBtnVisibleOsoby = true">Dodaj użytkownika</button>
-            <button mat-menu-item routerLinkActive="menu-active" routerLink="reset" *ngIf="authInfo?.isLoggedIn()" (click)="isBtnVisibleOsoby = true">Zmień hasło</button>
+            <button mat-menu-item routerLinkActive="menu-active" routerLink="register" *ngIf="authInfo?.isLoggedIn()" >Dodaj użytkownika</button>
+            <button mat-menu-item routerLinkActive="menu-active" routerLink="reset" *ngIf="authInfo?.isLoggedIn()" >Zmień hasło</button>
           </mat-menu>
 
     <mat-menu x-position="before" #menu="matMenu">

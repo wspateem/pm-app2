@@ -25,6 +25,7 @@ export class NewPersonComponent implements OnInit, OnChanges  {
   isCom=true;
   isCon=true;
   isWed=true;
+  familyId: string;
 
   @Input()
   initialValue: any;
@@ -43,7 +44,8 @@ export class NewPersonComponent implements OnInit, OnChanges  {
         city: ['', [Validators.required, Validators.minLength(3)]],
         postalcode: ['',[Validators.required, Validators.minLength(6), Validators.maxLength(6), Validators.pattern('[0-9]+-[0-9]{2,3}$')]],
         sex:['', [Validators.required]],
-           birthdate:[''],
+        familyId:[''],
+        birthdate:[''],
         baptismdate: [''],
         communiondate: [''],
         confirmationdate: [''],
@@ -59,12 +61,14 @@ export class NewPersonComponent implements OnInit, OnChanges  {
 
    ngOnChanges(changes: SimpleChanges) {
     if (changes['initialValue']) {
-        this.form.patchValue(changes['initialValue'].currentValue);
+        this.form.patchValue(changes['familyId'].currentValue);
     };
  
 }
 
   ngOnInit() {
+    this.familyId = this.route.snapshot.queryParams['familyId'];
+    console.log("family", this.familyId);
 }
 isErrorVisible(field: string, error: string) {
   return this.form.controls[field].dirty
@@ -80,14 +84,36 @@ save() {
    
 
   });
+  if(this.familyId){
+  this.form.patchValue({
+    $exists: function () {},
+
+    familyId: this.familyId,
+     });
+
+
+
+  
   const dataToSave = this.form.value;
-  this.personsService.createNewPerson(dataToSave)
+  this.personsService.createNewPerson2(this.familyId, dataToSave)
       .subscribe(
           () => {
               alert('Zachowano zmiany');
           },
           err => alert(`Błąd: ${err}`)
       );
+}
+
+else {
+  const dataToSave = this.form.value;
+  this.personsService.createNewPerson( dataToSave)
+      .subscribe(
+          () => {
+              alert('Zachowano zmiany');
+          },
+          err => alert(`Błąd: ${err}`)
+        );
+}
 }
 
 

@@ -13,6 +13,8 @@ import { PersonDetailComponent } from './persons/person-detail/person-detail.com
 import { Component } from '@angular/core';
 import { PersonSearchComponent } from './persons/person-search/person-search.component';
 import { PersonFormComponent } from './persons/person-form/person-form.component';
+import { FamiliesListComponent } from './families/families-list/families-list.component';
+import { FamilyDetailComponent } from './families//family-detail/family-detail.component';
 
 export const routerConfig: Route[] = [
     {
@@ -29,9 +31,34 @@ export const routerConfig: Route[] = [
         canActivate: [AuthGuard]
     },
     {
+        path: 'app-families-list',
+        children: [
+            {
+                path: ':id',
+                children: [
+                    {
+                        path: '',
+                        component: FamilyDetailComponent,
+                        canActivate: [AuthGuard]
+                    },
+                    {
+                        path: 'new',
+                        component: NewPersonComponent,
+                        canActivate: [AuthGuard]
+                    }
+                ]
+            },
+            {
+                path: '',
+                component: FamiliesListComponent,
+                canActivate: [AuthGuard]
+            }
+        ]
+},
+    {
         path: 'person-search/:id',
         children: [
-           
+
             {
                 path: '',
                 component: PersonDetailComponent,
@@ -51,7 +78,7 @@ export const routerConfig: Route[] = [
                     }
                 ]
             }
-           
+
         ]
       },
       {
@@ -84,6 +111,11 @@ export const routerConfig: Route[] = [
     component: PersonFormComponent,
     canActivate: [AuthGuard]
 
+    },
+    {
+        path: 'app-families-list',
+        component: FamiliesListComponent,
+        canActivate: [AuthGuard]
     },
 
     {

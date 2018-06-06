@@ -4,9 +4,9 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {PersonsService} from '../persons.service';
 import {Person} from '../prototype/person';
 import {Observable} from 'rxjs/Rx';
+
 import * as _ from 'lodash';
-
-
+import { browser } from 'protractor';
 
 
 @Component({
@@ -16,10 +16,17 @@ import * as _ from 'lodash';
 })
 
 export class PersonDetailComponent implements OnInit {
+
+ 
   person$: Observable<Person>;
   personId: string;
-  docPrint = false;
-
+  showHide=true;
+  date = new Date();
+  toBapDoc = false;
+  toConToDoc = false;
+  toComToDoc = false;
+  toWedToDoc = false;
+  toConDoc = false;
   
   @Output()
   personEmitter = new EventEmitter<Person>();
@@ -39,21 +46,40 @@ export class PersonDetailComponent implements OnInit {
       this.person$ = this.personsService.findPersonById(this.personId);
       console.log(this.personId);
       this.myEvent(this.person$);
-   
-     
-     
-     
-
   }
+
   myEvent(event) {
     console.log(event);
     this.personEmitter.emit(event);
   }
-doc(){
-
-  this.docPrint=!this.docPrint;
-}
-
+  showPanel(){
+  this.showHide = !this.showHide;
+  }
+showToBapDoc(){
+  this.toBapDoc = !this.toBapDoc;
+ 
+ setTimeout(() =>this.print(), 500);
+ }
+ showToConDoc(){
+  this.toConDoc = !this.toConDoc;
+ 
+ setTimeout(() =>this.print(), 500);
+ }
+ showToConToDoc(){
+  this.toConToDoc = !this.toConToDoc;
+ 
+ setTimeout(() =>this.print(), 500);
+ }
+ showToComToDoc(){
+  this.toComToDoc = !this.toComToDoc;
+ 
+ setTimeout(() =>this.print(), 500);
+ }
+ showToWedToDoc(){
+  this.toWedToDoc = !this.toWedToDoc;
+ 
+ setTimeout(() =>this.print(), 500);
+ }
 print() {
   let printContents, popupWin;
   printContents = document.getElementById('print-section').innerHTML;
@@ -62,21 +88,24 @@ print() {
   popupWin.document.write(`
     <html>
       <head>
-        <title>Print tab</title>
-        <style>
-        //........Customized style.......
-        </style>
+        <title></title>
+
       </head>
   <body onload="window.print();window.close()">${printContents}</body>
     </html>`
   );
   popupWin.document.close();
+  window.history.back();
 }
-
-
-
-
+sex(val: string){
+  if(val=="m"){
+  console.log(val);
+    return true;
   }
+  else
+  return false;
+}
+}
   
   
 

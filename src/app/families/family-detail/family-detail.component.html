@@ -1,0 +1,18 @@
+<h2>{{ (course$ | async)?.lname }}</h2>
+
+<div class="app-persons-list-container v-h-center-block-parent">
+
+  <div class="nav-bar">
+    
+  </div>
+
+  <app-persons-list *ngIf="persons" [persons]="persons"
+                (person)="navigateToPerson($event)"></app-persons-list>
+
+  <div class="tools-bar">
+      <button routerLink="new" [queryParams]="{familyId: (family$ | async)?.$key }">
+          Nowy członek
+      </button>
+  </div>
+
+</div>
