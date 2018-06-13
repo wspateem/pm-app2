@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FamiliesListComponent } from './families-list.component';
+<<<<<<< HEAD
 
 describe('FamiliesListComponent', () => {
   let component: FamiliesListComponent;
@@ -20,6 +21,11 @@ describe('FamiliesListComponent', () => {
   });
 
   it('should create', () => {
+=======
+describe('Component: Families', () => {
+  it('should create an instance', () => {
+    let component = new FamiliesListComponent();
+>>>>>>> 81526e695e1b0e0513596d524b2f5e385a75ad66
     expect(component).toBeTruthy();
   });
 });

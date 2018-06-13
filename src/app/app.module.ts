@@ -31,6 +31,12 @@ import { PersonSearchComponent } from './persons/person-search/person-search.com
 import { FamiliesListComponent } from './families/families-list/families-list.component';
 import { FamiliesService} from './families/families.service';
 import { FamilyDetailComponent } from './families/family-detail/family-detail.component';
+<<<<<<< HEAD
+=======
+import { NewFamilyComponent } from './families/new-family/new-family.component';
+import { FamilySearchComponent } from './families/family-search/family-search.component';
+import { PersonFamilyComponent } from './persons/person-family/person-family.component';
+>>>>>>> 81526e695e1b0e0513596d524b2f5e385a75ad66
 
 
 @NgModule({
@@ -48,7 +54,14 @@ import { FamilyDetailComponent } from './families/family-detail/family-detail.co
     PersonDetailComponent,
     PersonSearchComponent,
     FamiliesListComponent,
+<<<<<<< HEAD
     FamilyDetailComponent
+=======
+    FamilyDetailComponent,
+    NewFamilyComponent,
+    FamilySearchComponent,
+    PersonFamilyComponent
+>>>>>>> 81526e695e1b0e0513596d524b2f5e385a75ad66
   ],
   imports: [
     BrowserModule,

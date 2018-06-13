@@ -1,4 +1,5 @@
 
+<<<<<<< HEAD
 <mat-toolbar color="secondary">   
   <button  routerLink="app-families-list" routerLinkActive="menu-active" *ngIf="!authInfo?.isLoggedIn()" >Kartoteka rodzinna</button> 
  </mat-toolbar><main class="l-main l-sample-app">
@@ -26,3 +27,22 @@
      </div>
      </main>
     
+=======
+<table class="table app-families-list card card-strong">
+        <tr >
+            <td class="lp" style="font-size: 10pt; font-weight: bold; width: 50px; border-style: none; text-align:center">
+                &nbsp; LP</td>
+                <td class="lp"style="font-size: 10pt; font-weight: bold; width: 50px; border-style: none; text-align:center">
+                   Nazwisko Rodowe
+                </td>
+               
+            </tr>
+    <tr  *ngFor="let family of families; let i = index"  [routerLink]="family.$key">
+        <td  class="lname" style="font-size: 10pt; width: 50px; border-style: none; text-align:center">&nbsp;{{i+1}}.</td>
+      <td class="lp"style="font-size: 10pt; font-weight: bold; width: 50px; border-style: none; text-align:center">
+          {{family.lname}}
+      </td>
+     
+  </tr>
+</table>
+>>>>>>> 81526e695e1b0e0513596d524b2f5e385a75ad66
