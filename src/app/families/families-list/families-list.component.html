@@ -1,0 +1,28 @@
+
+<mat-toolbar color="secondary">   
+  <button  routerLink="app-families-list" routerLinkActive="menu-active" *ngIf="!authInfo?.isLoggedIn()" >Kartoteka rodzinna</button> 
+ </mat-toolbar><main class="l-main l-sample-app">
+
+
+<div>
+
+ <div class="main-container">
+     <div class="list"  style="text-align: left">
+<table class="families-list card card-strong">
+  <tr class="family-summary" *ngFor="let family of (families$ | async)">
+   
+      <td class="lname">
+          {{family.lname}}, {{family.$key}}
+      </td>
+      <td>
+          <button  [routerLink]="family.$key">Szczegły</button>
+      </td>
+  </tr>
+</table>
+
+
+     </div>
+     </div>
+     </div>
+     </main>
+    

@@ -11,28 +11,28 @@ import { AuthService } from '../security/auth.service';
 })
 export class HomeComponent implements OnInit {
     title = 'Plebania Millenium 2.0';
-   
+
     authInfo: AuthInfo;
-    constructor(private authService:AuthService) {
-  
-  
-  
+    constructor(private authService: AuthService) {
+
+
+
     }
-    
-  
+
+
     ngOnInit() {
-  
-  
+
+
         this.authService.authInfo$.subscribe(authInfo =>  this.authInfo = authInfo);
-  
-  
+
+
     }
-  
-  
+
+
       logout() {
           this.authService.logout();
       }
-  
-  
+
+
   }
-  
+

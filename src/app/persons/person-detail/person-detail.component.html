@@ -1,0 +1,318 @@
+      
+
+     <mat-toolbar color="secondary">   
+         <button  routerLink="../../person-search" routerLinkActive="menu-active" *ngIf="!authInfo?.isLoggedIn()" >Kartoteka osobowa</button> 
+        <button mat-button  routerLinkActive="menu-active" *ngIf="!authInfo?.isLoggedIn()" >-&nbsp;&nbsp;&nbsp; informacje o:&nbsp;  {{(person$ | async)?.lname}}  {{(person$ | async)?.fname}}</button>
+    </mat-toolbar><main class="l-main l-sample-app">
+<main class="l-main l-sample-app">
+
+    <div>
+
+        <div class="main-container" >
+            <div class="list2"  style="text-align: left">
+                   
+<div *ngIf="person$ | async as person" class="person-detail"><table class="person-detail" *ngIf="showHide">
+      
+        <fieldset class="person-detail">
+        <legend><h3>Karta osobowa</h3></legend>
+    <tr *ngIf="person.deathdate" class="person-detail"><td class="person-detail"><h2 style="color: red">Nie żyje</h2></td></tr>
+  
+   
+    <tr class="person-detail"><td class="person-detail">Nazwisko:<div>&nbsp;</div></td>
+        <td class="person-detail"><input name="title" type="text"  placeholder="{{(person$ | async)?.lname}}"  disabled><div>&nbsp;</div></td>
+    </tr>
+    <tr class="person-detail"><td class="person-detail">Imię:<div>&nbsp;</div></td>
+
+        <td class="person-detail"><input name="title" type="text"  placeholder="{{(person$ | async)?.fname}}"  disabled><div>&nbsp;</div></td>
+    </tr>
+    <tr *ngIf="person.sname" class="person-detail"><td>Drugie imię:<div>&nbsp;</div></td>
+
+        <td><input name="title" type="text"  placeholder="{{(person$ | async)?.sname}}"  disabled><div>&nbsp;</div></td>     
+    </tr>
+    <tr *ngIf="person.street"><td>Ulica:<div>&nbsp;</div></td>
+
+        <td><input name="title" type="text"  placeholder="{{(person$ | async)?.street}}"  disabled><div>&nbsp;</div></td>     
+    </tr>
+    <tr *ngIf="person.postalcode"><td>Kod pocztowy:<div>&nbsp;</div></td>
+
+        <td><input name="title" type="text"  placeholder="{{(person$ | async)?.postalcode}}"  disabled><div>&nbsp;</div></td>     
+    </tr>
+    <tr *ngIf="person.city"><td>Poczta:<div>&nbsp;</div></td>
+
+        <td><input name="title" type="text"  placeholder="{{(person$ | async)?.city}}"  disabled><div>&nbsp;</div></td>     
+    </tr>
+    <tr *ngIf="person.birthdate"><td>Data urodzenia:<div>&nbsp;</div></td>
+
+        <td><input name="title" type="text"  placeholder="{{(person$ | async)?.birthdate}}"  disabled><div>&nbsp;</div></td>
+    </tr>
+    <tr *ngIf="person.baptismdate"><td>Data chrztu:<div>&nbsp;</div></td>
+
+        <td><input name="title" type="text"  placeholder="{{(person$ | async)?.baptismdate}}"  disabled><div>&nbsp;</div></td>
+    </tr>
+    <tr  *ngIf="person.communiondate"><td>Data I Komuni Św.:<div>&nbsp;</div></td>
+
+        <td><input name="title" type="text"  placeholder="{{(person$ | async)?.communiondate}}"  disabled><div>&nbsp;</div></td>
+    </tr>
+    <tr *ngIf="person.confirmationdate"><td>Data bierzmowania:<div>&nbsp;</div></td>
+
+        <td><input name="title" type="text"  placeholder="{{(person$ | async)?.confirmationdate}}"  disabled><div>&nbsp;</div></td>
+    </tr>
+    <tr *ngIf="person.weddingdate"><td>Data ślubu:<div>&nbsp;</div></td>
+
+        <td><input name="title" type="text"  placeholder="{{(person$ | async)?.weddingdate}}"  disabled><div>&nbsp;</div></td>
+    </tr>
+    <tr *ngIf="person.deathdate"><td>Data śmierci:<div>&nbsp;</div></td>
+
+    
+        <td><input name="title" type="text"  placeholder="{{(person$ | async)?.deathdate}}"  disabled><div>&nbsp;</div></td>
+        
+    </tr>
+    <tr><td><button    [routerLink]="person.$key"  *ngIf="!person.deathdate"> Edytuj</button></td><td><button  routerLink="../../person-search">Powrót</button></td>
+        <td><button  *ngIf="!person.deathdate" (click)="showPanel()">Druki</button></td>
+    </tr>
+   </fieldset>
+    </table>
+    <div *ngIf="!showHide&&!toBapDoc&&!toConDoc&&!toConToDoc&&!toComToDoc&&!toWedToDoc">
+       
+         <table  style="width: 400px; text-align: justify"> 
+                <tr  *ngIf="person.baptismdate&&!person.communiondate"><td>
+                        Zaświadczenie do I komuni św.</td><td><button (click)="showToComToDoc()" >Drukuj</button></td></tr>
+                <tr  *ngIf="person.communiondate&&!person.confirmationdate"><td>
+                                Zaświadczenie do bierzmowania</td><td><button (click)="showToConToDoc()" >Drukuj</button></td></tr>
+                <tr  *ngIf="person.confirmationdate&&!person.weddingdate"><td>
+
+                         Zaświadczenie do ślubu </td><td><button (click)="showToWedToDoc()" >Drukuj</button></td></tr>   
+                <tr  *ngIf="person.confirmationdate"><td>
+
+                Zaświadczenie dla rodziców chrzestnych </td><td><button (click)="showToBapDoc()" >Drukuj</button></td></tr>
+          
+               <tr  *ngIf="person.confirmationdate"><td>
+                        Zaświadczenie dla świadka bierzmowania </td><td><button (click)="showToConDoc()" >Drukuj</button> </td> </tr> </table>
+                   
+                </div>
+    
+
+        
+
+<div  *ngIf="toBapDoc" >
+        <div *ngIf="sex(person.sex)">
+            <div id="print-section">
+    
+    <p style="text-align: left">Parafia rzymskokatolicka<br>
+        św. Jana Pawła II<br>
+        ul. Biskupa M. Fulmana 9<br>
+        20-492 Lublin<br></p>
+        <br><br>
+        <p style="text-align:center; font-size:x-large"><br>ZAŚWIADCZENIE<br></p>
+    <div>
+        <p style="text-align:justify">Zaświadcza się, że <b><i>{{(person$ | async)?.fname}}&nbsp;
+            {{(person$ | async)?.lname}} </i></b>zamieszkały na
+            terenie naszej parafii, <b><i>ul. {{(person$ | async)?.street}}; {{(person$ | async)?.postalcode}}&nbsp;{{(person$ | async)?.city}}
+            </i></b>jest wierzącym i praktykującym katolikiem. Wyżej wymieniony może być
+            dopuszczony do godności
+            ojca chrzestnego.</p>
+        </div>
+    <p style="text-align: left">Lublin, dnia {{date | date:'dd-MM-yyyy'}}</p>
+    <p style="text-align: right">.........................</p>
+    </div></div>
+    <div *ngIf="!sex(person.sex)">
+            <div id="print-section">
+    
+    <p style="text-align: left">Parafia rzymskokatolicka<br>
+        św. Jana Pawła II<br>
+        ul. Biskupa M. Fulmana 9<br>
+        20-492 Lublin<br></p>
+        <br><br>
+        <p style="text-align:center; font-size:x-large"><br>ZAŚWIADCZENIE<br></p>
+    <div>
+        <p style="text-align: justify">Zaświadcza się, że <b><i>{{(person$ | async)?.fname}}&nbsp;
+            {{(person$ | async)?.lname}} </i></b>zamieszkała na
+            terenie naszej parafii, <b><i>ul. {{(person$ | async)?.street}}; {{(person$ | async)?.postalcode}}&nbsp;{{(person$ | async)?.city}}
+            </i></b>jest wierzącym i praktykującym katolikiem. Wyżej wymieniona może być
+            dopuszczona do godności
+            matki chrzestnej.</p>
+        </div>
+    <p style="text-align: left">Lublin, dnia {{date | date:'dd-MM-yyyy'}}</p>
+    <p style="text-align: right">.........................</p>
+    </div></div>
+
+    </div>
+    <div  *ngIf="toConDoc" >
+            <div *ngIf="sex(person.sex)">
+                <div id="print-section">
+        
+        <p style="text-align: left">Parafia rzymskokatolicka<br>
+            św. Jana Pawła II<br>
+            ul. Biskupa M. Fulmana 9<br>
+            20-492 Lublin<br></p>
+            <br><br>
+            <p style="text-align:center; font-size:x-large"><br>ZAŚWIADCZENIE<br></p>
+        <div>
+            <p style="text-align:justify">Zaświadcza się, że <b><i>{{(person$ | async)?.fname}}&nbsp;
+                {{(person$ | async)?.lname}} </i></b>zamieszkały na
+                terenie naszej parafii, <b><i>ul. {{(person$ | async)?.street}}; {{(person$ | async)?.postalcode}}&nbsp;{{(person$ | async)?.city}}
+                </i></b>jest wierzącym i praktykującym katolikiem. Wyżej wymieniony może być
+                dopuszczony do godności
+                świadka bierzmowania.</p>
+            </div>
+        <p style="text-align: left">Lublin, dnia {{date | date:'dd-MM-yyyy'}}</p>
+        <p style="text-align: right">.........................</p>
+        </div></div>
+        <div *ngIf="!sex(person.sex)">
+                <div id="print-section">
+        
+        <p style="text-align: left">Parafia rzymskokatolicka<br>
+            św. Jana Pawła II<br>
+            ul. Biskupa M. Fulmana 9<br>
+            20-492 Lublin<br></p>
+            <br><br>
+            <p style="text-align:center; font-size:x-large"><br>ZAŚWIADCZENIE<br></p>
+        <div>
+            <p style="text-align: justify">Zaświadcza się, że <b><i>{{(person$ | async)?.fname}}&nbsp;
+                {{(person$ | async)?.lname}} </i></b>zamieszkała na
+                terenie naszej parafii, <b><i>ul. {{(person$ | async)?.street}}; {{(person$ | async)?.postalcode}}&nbsp;{{(person$ | async)?.city}}
+                </i></b>jest wierzącym i praktykującym katolikiem. Wyżej wymieniona może być
+                dopuszczona do godności
+                matki chrzestnej.</p>
+            </div>
+        <p style="text-align: left">Lublin, dnia {{date | date:'dd-MM-yyyy'}}</p>
+        <p style="text-align: right">.........................</p>
+        </div></div>
+    
+        </div>
+        <div  *ngIf="toComToDoc" >
+                <div *ngIf="sex(person.sex)">
+                    <div id="print-section">
+            
+            <p style="text-align: left">Parafia rzymskokatolicka<br>
+                św. Jana Pawła II<br>
+                ul. Biskupa M. Fulmana 9<br>
+                20-492 Lublin<br></p>
+                <br><br>
+                <p style="text-align:center; font-size:x-large"><br>ZAŚWIADCZENIE<br></p>
+            <div>
+                <p style="text-align:justify">Zaświadcza się, że <b><i>{{(person$ | async)?.fname}}&nbsp;
+                    {{(person$ | async)?.lname}} </i></b>zamieszkały na
+                    terenie naszej parafii, <b><i>ul. {{(person$ | async)?.street}}; {{(person$ | async)?.postalcode}}&nbsp;{{(person$ | async)?.city}}
+                    </i></b>jest wierzącym i praktykującym katolikiem. Wyżej wymieniony może być
+                    dopuszczony do I komuni Św..</p>
+                </div>
+            <p style="text-align: left">Lublin, dnia {{date | date:'dd-MM-yyyy'}}</p>
+            <p style="text-align: right">.........................</p>
+            </div></div>
+            <div *ngIf="!sex(person.sex)">
+                    <div id="print-section">
+            
+            <p style="text-align: left">Parafia rzymskokatolicka<br>
+                św. Jana Pawła II<br>
+                ul. Biskupa M. Fulmana 9<br>
+                20-492 Lublin<br></p>
+                <br><br>
+                <p style="text-align:center; font-size:x-large"><br>ZAŚWIADCZENIE<br></p>
+            <div>
+                <p style="text-align: justify">Zaświadcza się, że <b><i>{{(person$ | async)?.fname}}&nbsp;
+                    {{(person$ | async)?.lname}} </i></b>zamieszkała na
+                    terenie naszej parafii, <b><i>ul. {{(person$ | async)?.street}}; {{(person$ | async)?.postalcode}}&nbsp;{{(person$ | async)?.city}}
+                    </i></b>jest wierzącym i praktykującym katolikiem. Wyżej wymieniona może być
+                    dopuszczona do I komunii Św.</p>
+                </div>
+            <p style="text-align: left">Lublin, dnia {{date | date:'dd-MM-yyyy'}}</p>
+            <p style="text-align: right">.........................</p>
+            </div></div>
+        
+            </div>
+            <div  *ngIf="toConToDoc" >
+                    <div *ngIf="sex(person.sex)">
+                        <div id="print-section">
+                
+                <p style="text-align: left">Parafia rzymskokatolicka<br>
+                    św. Jana Pawła II<br>
+                    ul. Biskupa M. Fulmana 9<br>
+                    20-492 Lublin<br></p>
+                    <br><br>
+                    <p style="text-align:center; font-size:x-large"><br>ZAŚWIADCZENIE<br></p>
+                <div>
+                    <p style="text-align:justify">Zaświadcza się, że <b><i>{{(person$ | async)?.fname}}&nbsp;
+                        {{(person$ | async)?.lname}} </i></b>zamieszkały na
+                        terenie naszej parafii,<b><i>ul. {{(person$ | async)?.street}}; {{(person$ | async)?.postalcode}}&nbsp;{{(person$ | async)?.city}}
+                        </i></b>jest wierzącym i praktykującym katolikiem. Wyżej wymieniony może być
+                        dopuszczony do bierzmowania.</p>
+                    </div>
+                <p style="text-align: left">Lublin, dnia {{date | date:'dd-MM-yyyy'}}</p>
+                <p style="text-align: right">.........................</p>
+                </div></div>
+                <div *ngIf="!sex(person.sex)">
+                        <div id="print-section">
+                
+                <p style="text-align: left">Parafia rzymskokatolicka<br>
+                    św. Jana Pawła II<br>
+                    ul. Biskupa M. Fulmana 9<br>
+                    20-492 Lublin<br></p>
+                    <br><br>
+                    <p style="text-align:center; font-size:x-large"><br>ZAŚWIADCZENIE<br></p>
+                <div>
+                    <p style="text-align: justify">Zaświadcza się, że <b><i>{{(person$ | async)?.fname}}&nbsp;
+                        {{(person$ | async)?.lname}} </i></b>zamieszkała na
+                        terenie naszej parafii, <b><i>ul. {{(person$ | async)?.street}}; {{(person$ | async)?.postalcode}}&nbsp;{{(person$ | async)?.city}}
+                        </i></b>jest wierzącym i praktykującym katolikiem. Wyżej wymieniona może być
+                        dopuszczona do bierzmowania.</p>
+                    </div>
+                <p style="text-align: left">Lublin, dnia {{date | date:'dd-MM-yyyy'}}</p>
+                <p style="text-align: right">.........................</p>
+                </div></div>
+            
+                </div>
+                <div  *ngIf="toWedToDoc" >
+                        <div *ngIf="sex(person.sex)">
+                            <div id="print-section">
+                    
+                    <p style="text-align: left">Parafia rzymskokatolicka<br>
+                        św. Jana Pawła II<br>
+                        ul. Biskupa M. Fulmana 9<br>
+                        20-492 Lublin<br></p>
+                        <br><br>
+                        <p style="text-align:center; font-size:x-large"><br>ZAŚWIADCZENIE<br></p>
+                    <div>
+                        <p style="text-align:justify">Zaświadcza się, że <b><i>{{(person$ | async)?.fname}}&nbsp;
+                            {{(person$ | async)?.lname}} </i></b>zamieszkały na
+                            terenie naszej parafii, <b><i>ul. {{(person$ | async)?.street}}; {{(person$ | async)?.postalcode}}&nbsp;{{(person$ | async)?.city}}
+                            </i></b>jest wierzącym i praktykującym katolikiem. Wyżej wymieniony może wstąpić w sakramentalny związek małrzeński.</p>
+                        </div>
+                    <p style="text-align: left">Lublin, dnia {{date | date:'dd-MM-yyyy'}}</p>
+                    <p style="text-align: right">.........................</p>
+                    </div></div>
+                    <div *ngIf="!sex(person.sex)">
+                            <div id="print-section">
+                    
+                    <p style="text-align: left">Parafia rzymskokatolicka<br>
+                        św. Jana Pawła II<br>
+                        ul. Biskupa M. Fulmana 9<br>
+                        20-492 Lublin<br></p>
+                        <br><br>
+                        <p style="text-align:center; font-size:x-large"><br>ZAŚWIADCZENIE<br></p>
+                    <div>
+                        <p style="text-align: justify">Zaświadcza się, że <b><i>{{(person$ | async)?.fname}}&nbsp;
+                            {{(person$ | async)?.lname}} </i></b>zamieszkała na
+                            terenie naszej parafii, <b><i>ul. {{(person$ | async)?.street}}; {{(person$ | async)?.postalcode}}&nbsp;{{(person$ | async)?.city}}
+                            </i></b>jest wierzącym i praktykującym katolikiem. Wyżej wymieniona może wstąpić w sakramentalny związek małrzeński.</p>
+                        </div>
+                    <p style="text-align: left">Lublin, dnia {{date | date:'dd-MM-yyyy'}}</p>
+                    <p style="text-align: right">.........................</p>
+                    </div></div>
+                
+                    </div>
+</div>
+
+
+
+</div>
+
+</div>
+
+</div>
+
+
+
+
+
+</main>

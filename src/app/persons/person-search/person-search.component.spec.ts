@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { OnLoginComponent } from './on-login.component';
+import { PersonSearchComponent } from './person-search.component';
 
-describe('OnLoginComponent', () => {
-  let component: OnLoginComponent;
-  let fixture: ComponentFixture<OnLoginComponent>;
+describe('PersonSearchComponent', () => {
+  let component: PersonSearchComponent;
+  let fixture: ComponentFixture<PersonSearchComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ OnLoginComponent ]
+      declarations: [ PersonSearchComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(OnLoginComponent);
+    fixture = TestBed.createComponent(PersonSearchComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

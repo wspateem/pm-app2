@@ -1,33 +1,13 @@
 
-.lesson {
-    margin: 25px auto 0 auto;
-    max-width: 350px;
-}
 
-.lessons-list {
-    padding: 10px 10px 0 10px;
-    display: table-cell;
-    margin-bottom: 15px;
-}
 
-.lessons-list tr {
-    border-bottom: 1px solid darkgray;
-    cursor: pointer;
-}
 
-.lessons-list td {
-    padding-bottom: 5px;
-}
 
-.lesson-logo {
-    height: 20px;
-    margin-right: 10px;
-}
 
-.add-lesson {
-    width: 350px;
-    margin-bottom: 15px;
-}
+
+
+
+
 
 .md-icon {
     font-family: 'Material Icons';
@@ -68,16 +48,7 @@
 }
 
 
-.course-logo {
-    height: 75px;
-    margin: 0 auto;
-    background-color: #FAFAFA;
-    background-image: url(https://angular-academy.s3.amazonaws.com/main-logo/main-page-logo-small-hat.png);
-    background-repeat: no-repeat;
-    background-position-x: center;
-    background-size: 65px;
-    background-position-y: center;
-}
+
 
 form label {
     width: 100px;
@@ -128,17 +99,9 @@ form button[type='submit'] {
     margin-bottom: 15px;
 }
 
-.lesson-button {
-    background: #1976d2;
-    color: white;
-    font-weight: bold;
-}
 
-.lesson-button[disabled] {
-    background: grey;
-    color: white;
-    cursor: not-allowed;
-}
+
+
 
 button[disabled] {
     cursor: not-allowed;
@@ -179,39 +142,10 @@ form.ng-touched.ng-invalid {
     border-radius: 4px;
 }
 
-.lessons-list {
-    text-align: left;
-}
-
 .home-screen {
     margin-top: 50px;
 }
 
-.courses-list {
-    padding: 5px 10px;
-    text-align: left;
-}
-
-
-table.courses-list tr {
-    border-bottom: 1px solid darkgray;
-}
-
-table.courses-list tr td {
-    padding: 5px 0;
-}
-
-table.courses-list tr td.description {
-    padding-right: 15px;
-}
-
-table.courses-list tr td:first-child {
-    padding-left: 15px;
-}
-
-table.courses-list tr td:last-child {
-    padding-right: 15px;
-}
 
 ul.top-menu > li > a.menu-active {
     color: #ee1c1b;
@@ -229,18 +163,27 @@ ul.top-menu > li > a.menu-active {
 
 .main-container .list {
     display: inline-block;
-    max-width: 270px;
+    max-width: 800px;
+    height: 800px;
     vertical-align: top;
+    text-align: center;
     margin-right: 50px;
+    margin-left: 50px;
 }
-
+.list2 {
+    display: inline-block;
+    max-width: 800px;
+    width: 700px;
+    height: 800px;
+    max-height: 700px;
+    vertical-align: top;
+    text-align: center;
+    margin-right: 50px;
+    margin-left: 50px;
+}
 
 .nav-fields {
     margin-bottom: 40px;
-}
-
-.course-summary {
-    cursor: pointer;
 }
 
 .chat {

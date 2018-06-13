@@ -4,7 +4,7 @@
 export class AuthInfo {
 
     constructor(
-        public $uid:string
+        public $uid: string
     ) {
 
     }

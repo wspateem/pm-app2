@@ -1,0 +1,172 @@
+    
+
+<mat-toolbar color="secondary">   
+        <button  routerLink="person-search" routerLinkActive="menu-active" *ngIf="!authInfo?.isLoggedIn()" >Kartoteka osobowa</button> 
+       <button mat-button  routerLinkActive="menu-active" *ngIf="!authInfo?.isLoggedIn()" >-&nbsp;&nbsp;&nbsp; edycja:&nbsp;  {{(person$ | async)?.lname}}  {{(person$ | async)?.fname}}</button>
+   </mat-toolbar><main class="l-main l-sample-app">
+
+
+   <div>
+
+       <div class="main-container">
+           <div class="list"  style="text-align: left">
+
+<div *ngIf="person$ | async as person">
+        <form [formGroup]="form" autocomplete="off" novalidate class="person-form">
+
+                <fieldset>
+                    <legend><h3>Karta osobowa edycja</h3></legend><table>
+   <tr *ngIf="person.deathdate"><td><h2 style="color: red">Nie żyje</h2></td></tr>
+ 
+   <tr><td><div>Nazwisko:</div><div> &nbsp;</div></td>
+    <td> <input name="title" type="text" formControlName="lname"  placeholder="Nazwisko">
+     <div  class="field-error-message" *ngIf="!form.controls.lname.valid && 
+     (form.controls.lname.touched || form.controls.lname.dirty)" style="font-size: xx-small">pole obowiązkowe, min. 2 litery
+     </div><div class="field-error-message" style="font-size:xx-small"  
+     *ngIf="form.controls.lname.valid || ((!form.controls.lname.valid && 
+         !form.controls.lname.dirty))">&nbsp;</div>
+    
+ 
+    
+ </td>
+ </tr>
+ <tr><td><div>Imię:</div><div> &nbsp;</div></td>
+
+    <td><input name="title" type="text"  formControlName="fname" placeholder="Imię"  >
+     <div  class="field-error-message" *ngIf="!form.controls.fname.valid && 
+     (form.controls.fname.touched || form.controls.fname.dirty)" style="font-size: xx-small">pole obowiązkowe, min. 2 litery
+     </div><div class="field-error-message" style="font-size:xx-small"  
+     *ngIf="form.controls.fname.valid || ((!form.controls.fname.valid && 
+         !form.controls.fname.dirty))">&nbsp;</div>
+ 
+ </td>
+ </tr>
+   
+
+ <tr><td><div>Drugie imię:</div><div> &nbsp;</div></td>
+
+    <td><input name="title" type="text"  formControlName="sname" placeholder="Drugie imię"  >
+     <div  class="field-error-message" *ngIf="!form.controls.sname.valid && (form.controls.sname.touched || form.controls.sname.dirty)" style="font-size: xx-small">min. 2 litery
+     </div><div class="field-error-message" style="font-size:xx-small"  
+     *ngIf="form.controls.sname.valid || ((!form.controls.sname.valid && 
+         !form.controls.sname.dirty))">&nbsp;</div>
+ </td>     
+ </tr>
+
+
+ <tr><td><div>Płeć:</div><div> &nbsp;</div></td>
+
+    <td><select name="title" formControlName="sex" >
+            <option value="m">Mężczyzna
+            <option value="f">Kobieta
+           
+        </select>
+        
+       
+     <div  class="field-error-message" *ngIf="!form.controls.sex.valid && (form.controls.sex.touched || form.controls.sex.dirty)" style="font-size: xx-small">proszę wybrać
+     </div><div class="field-error-message" style="font-size:xx-small"  
+     *ngIf="form.controls.sex.valid || ((!form.controls.sex.valid && 
+         !form.controls.sex.dirty))">&nbsp;</div>
+ </td>     
+ </tr>
+ 
+<tr><td><div>Ulica:</div><div> &nbsp;</div></td>
+    <td> <input name="title" type="text" formControlName="street"  placeholder="Ulica"  >
+        <div  class="field-error-message" *ngIf="!form.controls.street.valid && 
+        (form.controls.street.touched || form.controls.street.dirty)" style="font-size: xx-small">pole obowiązkowe, min. 5 znaków
+        </div><div class="field-error-message" style="font-size:xx-small"  
+        *ngIf="form.controls.street.valid || ((!form.controls.street.valid && 
+            !form.controls.street.dirty))">&nbsp;</div>
+  
+ </td>
+</tr>
+<tr><td><div>Kod pocztowy:</div><div> &nbsp;</div></td>
+    <td> <input name="title" type="text" formControlName="postalcode"  placeholder="Kod pocztowy"  >
+        <div  class="field-error-message" *ngIf="!form.controls.postalcode.valid && (form.controls.postalcode.touched || form.controls.postalcode.dirty)" style="font-size: xx-small">Pole obowiązkowe, XX-XXX
+        </div><div class="field-error-message" style="font-size:xx-small"  
+        *ngIf="form.controls.postalcode.valid || ((!form.controls.postalcode.valid && 
+            !form.controls.postalcode.dirty))">&nbsp;</div>
+  
+ </td>
+</tr>
+
+<tr><td><div>Poczta:</div><div> &nbsp;</div></td>
+    <td> <input name="title" type="text" formControlName="city"  placeholder="Poczta"  >
+        <div  class="field-error-message" *ngIf="!form.controls.city .valid && 
+        (form.controls.city.touched || form.controls.city.dirty)" style="font-size: xx-small">pole obowiązkowe, min. 5 znaków
+        </div><div class="field-error-message" style="font-size:xx-small"  
+        *ngIf="form.controls.city.valid || ((!form.controls.city.valid && 
+            !form.controls.city.dirty))">&nbsp;</div>
+  
+ </td>
+</tr>
+
+<tr><td><div>Data urodzenia:</div><div> &nbsp;</div></td>
+
+    <td><input name="title" type="date"  formControlName="birthdate" placeholder=""  ><div> &nbsp;</div></td>
+ </tr>
+ <tr *ngIf="form.value.birthdate"><td><div>Data chrztu:</div><div> &nbsp;</div></td>
+ 
+    <td><input name="title" type="date" formControlName="baptismdate" placeholder="" >
+     <div class="field-error-message"
+     *ngIf="validBapDate()" style="font-size:xx-small">podaj poprawną datę</div>
+     <div class="field-error-message"
+     *ngIf="!validBapDate()" style="font-size:xx-small">&nbsp;</div>
+ </td>
+ </tr>
+ <tr  *ngIf="form.value.baptismdate"><td><div>Data I Komuni Św.:</div><div>&nbsp;</div></td>
+ 
+    <td><input name="title" type="date" formControlName="communiondate" placeholder=""  >
+     <div class="field-error-message"
+     *ngIf="validComDate()" style="font-size:xx-small">podaj poprawną datę</div>
+     <div class="field-error-message"
+     *ngIf="!validComDate()" style="font-size:xx-small">&nbsp;</div>
+ 
+ </td>
+ </tr>
+ <tr *ngIf="form.value.communiondate"><td><div>Data bierzmowania:</div><div>&nbsp;</div></td>
+ 
+    <td><input name="title" type="date" formControlName="confirmationdate" placeholder=""  >
+     <div class="field-error-message"
+     *ngIf="validConDate()" style="font-size:xx-small">podaj poprawną datę</div>
+     <div class="field-error-message"
+     *ngIf="!validConDate()" style="font-size:xx-small">&nbsp;</div>
+ </td>
+ </tr>
+ <tr *ngIf="form.value.confirmationdate"><td><div>Data ślubu:</div><div>&nbsp;</div></td>
+ 
+    <td><input name="title" type="date" formControlName="weddingdate" placeholder=""  >
+     <div class="field-error-message"
+     *ngIf="validWedDate()" style="font-size:xx-small">podaj poprawną datę</div>
+     <div class="field-error-message"
+     *ngIf="!validWedDate()" style="font-size:xx-small">&nbsp;</div>
+ </td>
+ </tr>
+ <tr *ngIf="form.value.birthdate"><td><div>Data śmierci:</div><div>&nbsp;</div></td>
+ 
+ 
+    <td><input name="title" type="date" formControlName="deathdate" placeholder=""  >
+     <div class="field-error-message"
+     *ngIf="validDeatDate()" style="font-size:xx-small">podaj poprawną datę</div>
+     <div class="field-error-message"
+     *ngIf="!validDeatDate()" style="font-size:xx-small">&nbsp;</div>
+ 
+ </td>
+    
+ </tr><tr><td><button  (click)="save()" [routerLink]="['/person-search', personId]" *ngIf="!person.deathdate" [disabled]="!isValid()"> Zapisz</button>
+
+</td><td><button  routerLink="/person-search">Anuluj</button></tr>
+  
+  </table>
+</fieldset>
+
+</form>
+
+</div>
+</div>
+
+</div>
+
+</div>
+
+</main>

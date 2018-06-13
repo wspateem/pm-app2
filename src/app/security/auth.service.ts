@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import {Observable, Subject, BehaviorSubject} from "rxjs/Rx";
-import {AngularFireAuth } from "angularfire2/auth";
-import {AuthInfo} from "./auth-info";
-import {Router} from "@angular/router";
+import {Observable, Subject, BehaviorSubject} from 'rxjs/Rx';
+import {AngularFireAuth } from 'angularfire2/auth';
+import {AuthInfo} from './auth-info';
+import {Router} from '@angular/router';
 import * as firebase from 'firebase/app';
 
 
@@ -14,14 +14,14 @@ export class AuthService {
   authInfo$: BehaviorSubject<AuthInfo> = new BehaviorSubject<AuthInfo>(AuthService.UNKNOWN_USER);
 
 
-  constructor(private afAuth: AngularFireAuth, private router:Router) {
+  constructor(private afAuth: AngularFireAuth, private router: Router) {
 
   }
 
 
 
 
-    login(email, password):Observable<AuthInfo> {
+    login(email, password): Observable<AuthInfo> {
         return this.fromFirebaseAuthPromise(this.afAuth.auth.signInWithEmailAndPassword(email, password));
     }
 
@@ -29,13 +29,13 @@ export class AuthService {
     signUp(email, password) {
         return this.fromFirebaseAuthPromise(this.afAuth.auth.createUserWithEmailAndPassword(email, password));
     }
-    updatePassword(newpassword){
+    updatePassword(newpassword) {
         return this.fromFirebaseAuthPromise(this.afAuth.auth.currentUser.updatePassword(newpassword));
     }
 
-    
 
-    fromFirebaseAuthPromise(promise):Observable<any> {
+
+    fromFirebaseAuthPromise(promise): Observable<any> {
 
         const subject = new Subject<any>();
 

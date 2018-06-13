@@ -1,0 +1,11 @@
+.person-detail {
+  width: 400px;
+}
+
+
+.field-error-message {
+  text-align: left
+}
+button:disabled{
+  color: #ffffff;
+}

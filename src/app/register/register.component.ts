@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {FormGroup, FormBuilder, Validators} from "@angular/forms";
-import {AuthService} from "../security/auth.service";
-import {Router} from "@angular/router";
+import {FormGroup, FormBuilder, Validators} from '@angular/forms';
+import {AuthService} from '../security/auth.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -10,16 +10,16 @@ import {Router} from "@angular/router";
 })
 export class RegisterComponent  {
 
-  form:FormGroup;
+  form: FormGroup;
 
   constructor(private fb: FormBuilder,
               private authService: AuthService,
               private router: Router) {
 
       this.form = this.fb.group({
-          email: ['',Validators.required],
-          password: ['',Validators.required],
-          confirm: ['',Validators.required]
+          email: ['', Validators.required],
+          password: ['', Validators.required],
+          confirm: ['', Validators.required]
       });
 
 
@@ -27,7 +27,7 @@ export class RegisterComponent  {
 
     isPasswordMatch() {
         const val = this.form.value;
-        return val && val.password && val.password == val.confirm;
+        return val && val.password && val.password === val.confirm;
     }
 
     signUp() {
