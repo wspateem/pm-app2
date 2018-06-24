@@ -28,6 +28,9 @@
     "@angular/router": "6.0.0",
     "@types/lodash": "^4.14.36",
     "@types/request": "0.0.30",
+    "angular-5-popup": "0.0.6",
+    "angular-calendar": "^0.25.2",
+    "angular-confirmation-popover": "^4.1.0",
     "angular-date-value-accessor": "0.0.2",
     "angularfire2": "^4.0.0-rc.0",
     "core-js": "^2.4.1",
@@ -35,6 +38,8 @@
     "firebase-queue": "^1.5.0",
     "hammerjs": "^2.0.8",
     "lodash": "^4.15.0",
+    "moment": "^2.22.2",
+    "ng2-opd-popup": "^1.1.21",
     "rxjs": "6.1.0",
     "rxjs-compat": "^6.0.0-rc.0",
     "zone.js": "0.8.26"

@@ -24,10 +24,7 @@ function runConsumer() {
     console.log("Running consumer ...");
 
     const familiesRef = database().ref("families");
-<<<<<<< HEAD
-=======
     const lessonsPerCourseRef = database().ref("lessonsPerCourse");
->>>>>>> 81526e695e1b0e0513596d524b2f5e385a75ad66
 
     const queueRef = database().ref('queue');
 
@@ -36,8 +33,25 @@ function runConsumer() {
 
         console.log('received delete request ...',data);
 
+        const deleteLessonPromise = lessonsRef.child(data.lessonId).remove();
+
+        const deleteLessonPerCoursePromise =
+            lessonsPerCourseRef.child(`${data.courseId}/${data.lessonId}`).remove();
+
+        Promise.all([deleteLessonPromise, deleteLessonPerCoursePromise])
+            .then(
+                () => {
+                    console.log("lesson deleted");
+                    resolve();
+                }
+            )
+            .catch(() => {
+            console.log("lesson deletion in error");
+            reject();
+        });
 
 
+    });
 
 
 }
