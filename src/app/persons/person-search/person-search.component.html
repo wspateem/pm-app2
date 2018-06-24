@@ -1,20 +1,26 @@
 
       <mat-toolbar color="secondary">   
-          <button routerLink="../person-search" routerLinkActive="menu-active" *ngIf="!authInfo?.isLoggedIn()" >Kartoteka osobowa</button> 
-          </mat-toolbar><main class="l-main l-sample-app">
+          <button [routerLink]="url" routerLinkActive="menu-active" *ngIf="!authInfo?.isLoggedIn()&&!familyId" >Kartoteka osobowa</button> 
+          <button routerLink="/family-search" routerLinkActive="menu-active" *ngIf="!authInfo?.isLoggedIn()&&!!familyId" >Kartoteka rodzinna</button>
+          <button  [routerLink]="'/family-search/'+familyId" routerLinkActive="menu-active" *ngIf="!authInfo?.isLoggedIn()&&!!familyId" >{{getFamilyName(familyId)}}</button> 
+          <button mat-button  routerLinkActive="menu-active" *ngIf="!authInfo?.isLoggedIn()&&!!familyId"  >-&nbsp;&nbsp;&nbsp; dodawanie osoby do rodziny - {{getFamilyName(familyId)}}</button>
+          <button routerLink="../new" *ngIf="!authInfo?.isLoggedIn()&&!familyId">Dodaj nową osobę</button>
+        </mat-toolbar>
+          <main class="l-main l-sample-app">
 
 
         <div>
     
             <div class="main-container">
-          
+                <div class="list3"  >
                    
                     
 
                     
                     
-                 <h3> <P>Szukaj: &nbsp; <input class="search-bar" placeholder="Nazwisko"(keyup)="search(input.value)" #input> 
-                    lub <button routerLink="../new">Dodaj nową osobę</button></P></h3>
+                 <h3 > <table ><tr><td>Szukaj: &nbsp; </td><td><input class="search-bar" placeholder=""(keyup)="search(input.value)" #input> </td></tr>
+                    <tr><td></td><td><span style="font-size: x-small">nazwisko, imię lub data urodzenia (rrrr-mm-dd)</span>  </td></tr>
+                </table>    </h3></div>
                  <p>Klikni, żeby zobaczyć szczegóły.</p>
                     
                     <div class="app-persons-list-container v-h-center-block-parent">

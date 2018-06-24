@@ -9,6 +9,7 @@ import {Family} from './prototype/family';
 import {Person} from '../persons/prototype/person';
 import {FirebaseApp} from 'angularfire2';
 import {firebaseConfig} from '../../environments/firebase.config';
+import {initializeApp, auth,database} from 'firebase';
 import {Http} from '@angular/http';
 import {FirebaseListFactoryOpts} from 'angularfire2/interfaces';
 
@@ -18,13 +19,21 @@ import {FirebaseListFactoryOpts} from 'angularfire2/interfaces';
 
 export class FamiliesService {
   sdkDb: any;
+  ppf: any;
+  ab: any;
   constructor(private db: AngularFireDatabase, @Inject(FirebaseApp) fb: FirebaseApp,
   private http: Http) {
     this.sdkDb = fb.database().ref('families/');
+    this.ppf = fb.database().ref('personsPerFamily/');
+    this.ab = fb.database();
   }
 
   findAllFamilies(): Observable<Family[]> {
-    return this.db.list('families').pipe(map(Family.fromJsonArray));
+    return this.db.list('families',{
+        query: {
+            orderByChild: 'lname'
+        }  
+    }).pipe(map(Family.fromJsonArray));
 }
 
 
@@ -41,9 +50,6 @@ findFamilyById(familyId:string):Observable<Family> {
         return this.db.object(`families/${familyId}`)
         .map(Family.fromJson);
     }
-<<<<<<< HEAD
-
-=======
     findFamilyByKey(familyKeys: string): Observable<Family> {
         return this.db.list('families', {
             query: {
@@ -54,7 +60,6 @@ findFamilyById(familyId:string):Observable<Family> {
         }).pipe(
             map(results => results[0]));
     }
->>>>>>> 81526e695e1b0e0513596d524b2f5e385a75ad66
     findPersonssForPersonKeys(personKeys$: Observable<string[]>) :Observable<Person[]> {
       return personKeys$.pipe(
           map(pspf => pspf.map(personKeys => this.db.object('persons/' + personKeys)) ),
@@ -65,7 +70,7 @@ findFamilyById(familyId:string):Observable<Family> {
     findPersonKeysPerFamilyKey(familyId:string,
       query: FirebaseListFactoryOpts = {}): Observable<string[]> {
 return this.findFamilyById(familyId).pipe(
-tap(val => console.log("family",val)),
+tap(),
 filter(family => !!family),
 switchMap(family => this.db.list(`personsPerFamily/${family.$key}`,query)),
 map( pspf => pspf.map(ppf => ppf.$key) ),);
@@ -82,8 +87,6 @@ map( pspf => pspf.map(ppf => ppf.$key) ),);
 
       return this.findPersonssForPersonKeys(firstPagePersonKeys$);
 }
-<<<<<<< HEAD
-=======
 firebaseUpdate(dataToSave) {
     const subject = new Subject();
 
@@ -115,6 +118,6 @@ createNewFamily(family:any): Observable<any> {
     dataToSave[ newFamilyKey] = familyToSave;
       return this.firebaseUpdate(dataToSave);
   }
->>>>>>> 81526e695e1b0e0513596d524b2f5e385a75ad66
 
-}
+
+  }

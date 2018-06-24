@@ -1,7 +1,7 @@
 
 <mat-toolbar color="secondary">   
-    <button  routerLink="../families-search" routerLinkActive="menu-active" *ngIf="!authInfo?.isLoggedIn()" >Kartoteka rodzinna</button> 
-  
+    <button  routerLink="/family-search" routerLinkActive="menu-active" *ngIf="!authInfo?.isLoggedIn()" >Kartoteka rodzinna</button> 
+    <button routerLink="../new-family">Dodaj nową rodzinę</button>
   </mat-toolbar><main class="l-main l-sample-app">
   
   
@@ -9,7 +9,7 @@
   
     <div class="main-container">
         <h3> <P>Szukaj: &nbsp; <input class="search-bar" placeholder="Nazwisko"(keyup)="search(input.value)" #input> 
-          lub <button routerLink="../new-family">Dodaj nową rodzinę</button></P></h3>
+          </P></h3>
        <p>Klikni, żeby zobaczyć szczegóły.</p>
        <div class="app-families-lis-container v-h-center-block-parent">
                     

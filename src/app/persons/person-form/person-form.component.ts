@@ -9,7 +9,8 @@ import {tap} from 'rxjs/operators';
 import * as firebase from 'firebase/app';
 import * as _ from 'lodash';
 import { AngularFireDatabase } from 'angularfire2/database';
-
+import {AuthService} from '../../security/auth.service';
+import {AuthInfo} from '../../security/auth-info';
 @Component({
   selector: 'app-person-form',
   templateUrl: './person-form.component.html',
@@ -28,44 +29,43 @@ export class PersonFormComponent implements OnInit  {
   isCom=true;
   isCon=true;
   isWed=true;
- 
+  familyId: string;
   @Input()
   personKey: string;
-
+  authInfo: AuthInfo;
   constructor(private route: ActivatedRoute,
     private router: Router,
     private personsService: PersonsService,
     private db: AngularFireDatabase,
     private fb: FormBuilder) {
-    this.form = this.fb.group({
-      lname: ['', [Validators.required, Validators.minLength(2)]],
-      fname: ['', [Validators.required, Validators.minLength(2)]],
-      sname: ['', [Validators.minLength(2)]],
-      street: ['', [Validators.required, Validators.minLength(5)]],
-      city: ['', [Validators.required, Validators.minLength(3)]],
-      postalcode: ['',[Validators.required, Validators.minLength(6), Validators.maxLength(6), Validators.pattern('[0-9]+-[0-9]{2,3}$')]],
-      sex:['', [Validators.required]],
-      birthdate:[''],
-      baptismdate: [''],
-      communiondate: [''],
-      confirmationdate: [''],
-      weddingdate: [''],
-      alive: [''],
-      deathdate: ['']
-
-});
-route.data.pipe(
-  tap(console.log))
-  .subscribe(
-  data => this.person = data['person']
-);
-   }
-
-
-
+     this.form = this.fb.group({
+        lname: ['', [Validators.required, Validators.minLength(2)]],
+        fname: ['', [Validators.required, Validators.minLength(2)]],
+        sname: ['', [Validators.minLength(2)]],
+        street: ['', [Validators.required, Validators.minLength(5)]],
+        city: ['', [Validators.required, Validators.minLength(3)]],
+        postalcode: ['',[Validators.required, Validators.minLength(6), Validators.maxLength(6), Validators.pattern('[0-9]+-[0-9]{2,3}$')]],
+        sex:['', [Validators.required]],
+        birthdate:[''],
+        baptismdate: [''],
+        communiondate: [''],
+        familyId: [''],
+        confirmationdate: [''],
+        weddingdate: [''],
+        alive: [''],
+        deathdate: ['']
+      });
+      route.data.pipe(
+        tap(console.log))
+        .subscribe(
+        data => this.person = data['person']
+      );
+    }
   ngOnInit() {
-    
+    window.scroll(0,0);
     this.personId = this.route.snapshot.params['id2'];
+    this.familyId = this.route.snapshot.queryParams['familyId2'];
+    console.log(this.familyId);
 
     this.person$ = this.personsService.findPersonById(this.personId);
     console.log(this.personId);
@@ -82,29 +82,27 @@ route.data.pipe(
       birthdate: this.person.birthdate,
       baptismdate: this.person.baptismdate,
       communiondate: this.person.communiondate,
+      familyId: this.person.familyId,
       confirmationdate: this.person.confirmationdate,
       weddingdate: this.person.weddingdate,
-      deathda: this.person.deathdate
-
+      alive: this.person.alive,
+      deathdate: this.person.deathdate
     });
 this.url = "/person-search/" + this.personId;
-
-    
   }
-
-  
-
-
 save() {
-  if (this.form.value.deathdate)
+  if (this.form.value.deathdate){
   this.form.patchValue({
     $exists: function () {},
-
     alive: 'false',
-   
-
   });
-  
+}
+else{
+  this.form.patchValue({
+    $exists: function () {},
+    alive: 'true',
+  });
+}
   const dataToSave = this.form.value;
   this.personsService.sevePerson(this.person.$key, dataToSave)
       .subscribe(
@@ -113,14 +111,8 @@ save() {
           },
           err => alert(`Błąd: ${err}`)
       );
-      console.log(this.url);
-     
 }
-
 isValid(){
-
-  
-
   if (this.form.value.birthdate){
     this.isBorn=true;
   }
@@ -168,21 +160,15 @@ isValid(){
       this.isWed=false;
     }
   }
-  console.log(this.form.valid&&this.isBapt&&this.isBorn&&this.isCom&&this.isCon&&this.isWed&&this.isDeath + 'cpcocoococo');
   return this.form.valid&&this.isBapt&&this.isBorn&&this.isCom&&this.isCon&&this.isWed&&this.isDeath;
 }
-
 validBapDate(){
   if (this.form.value.birthdate && this.form.value.baptismdate)
  if(this.form.value.birthdate >this.form.value.baptismdate)
   {
-    console.log('data urodzenia jest i jest większa od daty chrztu');
-   
 return true;
 }
   else{
- 
- 
 return false;
 }
 }
@@ -190,13 +176,9 @@ validComDate(){
   if (this.form.value.communiondate && this.form.value.baptismdate)
   if(this.form.value.baptismdate>this.form.value.communiondate)
   {
-    console.log('data chrztu jest większa od daty komuni');
-  
 return true;
 }
   else{
-    console.log('data komuni jest ok');
- 
 return false;
 }
 }
@@ -204,13 +186,9 @@ validConDate(){
   if (this.form.value.communiondate && this.form.value.confirmationdate)
   if(this.form.value.communiondate>this.form.value.confirmationdate)
   {
-    console.log('data komuni jest większa od daty bierzmowania');
-   
 return true;
 }
   else{
-    console.log('data bierzmowania jest ok');
-  
 return false;
 }
 }
@@ -218,59 +196,45 @@ validWedDate(){
   if (this.form.value.weddingdate && this.form.value.confirmationdate)
   if(this.form.value.confirmationdate>=this.form.value.weddingdate)
   {
-    console.log('data bierzmowania jest większa od daty ślubu');
-  
 return true;
 }
   else{
-    console.log('data ślubu jest ok');
- 
 return false;
 }
 }
-
 validDeatDate(){
   if (this.form.value.birthdate && this.form.value.deathdate){
   if (this.form.value.birthdate > this.form.value.deathdate){
-    console.log('data smierci jest zła');
     return true;
   }
   else{
   if(this.form.value.baptismdate&&(this.form.value.baptismdate>this.form.value.deathdate))
 {
-  console.log('data śmierci jest zła');
   return true;
 }
 else{
   if (this.form.value.communiondate&&(this.form.value.communiondate>this.form.value.deathdate))
   {
-    console.log('data śmierci jest zła');
     return true;
   }
   else
   {
     if(this.form.value.confirmationdate&&(this.form.value.confirmationdate>this.form.value.deathdate))
     {
-      console.log('data śmierci jest zła');
       return true;
     }
     else
     {
     if(this.form.value.weddingdate&&(this.form.value.weddingdate>this.form.value.deathdate))
     {
-      console.log('data śmierci jest zła');
       return true;
     }
     else
     {
-      console.log('data śmierci jest ok');
       return false;
     }
-
     }
-
   }
-
 }
 }
 }

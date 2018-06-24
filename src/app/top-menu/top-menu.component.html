@@ -21,7 +21,7 @@
         <div fxLayout="row" fxShow="false" fxShow.gt-sm>
             <button mat-button routerLink="login" routerLinkActive="menu-active" *ngIf="!authInfo?.isLoggedIn()" >Logowanie</button>
             <button mat-button [matMenuTriggerFor]="kartMenu" *ngIf="authInfo?.isLoggedIn()">Kartoteki</button>
-            <button mat-button [matMenuTriggerFor]="ksieMenu" *ngIf="authInfo?.isLoggedIn()">Księgi</button>
+            <button mat-button routerLink="calendar" *ngIf="authInfo?.isLoggedIn()">Kalendarz</button>
             <button mat-button [matMenuTriggerFor]="adminMenu" *ngIf="authInfo?.isLoggedIn()" >Administracja</button>
             <button mat-button *ngIf="authInfo?.isLoggedIn()" (click)="logout()">Wyloguj się</button>
         </div>
@@ -32,8 +32,8 @@
     </mat-toolbar>
     
     <mat-menu  #kartMenu="matMenu" >
-        <button mat-menu-item routerLinkActive="menu-active" routerLink="person-search" *ngIf="authInfo?.isLoggedIn()">Osobowa</button>
-        <button mat-menu-item routerLinkActive="menu-active" routerLink="app-families-list" *ngIf="authInfo?.isLoggedIn()">Rodzinna</button>
+        <button mat-menu-item routerLinkActive="menu-active" routerLink="/person-search" *ngIf="authInfo?.isLoggedIn()">Osobowa</button>
+        <button mat-menu-item routerLinkActive="menu-active" routerLink="family-search" *ngIf="authInfo?.isLoggedIn()">Rodzinna</button>
         
       </mat-menu>
       <mat-menu   #ksieMenu="matMenu">

@@ -1,9 +1,10 @@
-    
 
 <mat-toolbar color="secondary">   
-    <button  routerLink="new" routerLinkActive="menu-active" *ngIf="!authInfo?.isLoggedIn()" >Nowa kartoteka osobowa</button> 
-  
-</mat-toolbar><main class="l-main l-sample-app">
+        <button  routerLink="/person-search" routerLinkActive="menu-active" *ngIf="!authInfo?.isLoggedIn()&&!familyId" >Kartoteka osobowa</button> 
+        <button routerLink="/family-search" routerLinkActive="menu-active" *ngIf="!authInfo?.isLoggedIn()&&!!familyId" >Kartoteka rodzinna</button>
+        <button   [routerLink]="'/family-search/'+familyId" routerLinkActive="menu-active" *ngIf="!authInfo?.isLoggedIn()&&!!familyId" >{{getFamilyName(familyId)}}</button> 
+        <button mat-button  routerLinkActive="menu-active" *ngIf="!authInfo?.isLoggedIn()&&!!familyId"  >-&nbsp;&nbsp;&nbsp; dodawanie nowej osoby do rodziny - {{getFamilyName(familyId)}}</button>
+    </mat-toolbar><main class="l-main l-sample-app">
 <main class="l-main l-sample-app">
 
 <div>
@@ -152,7 +153,12 @@
 
 </td>
    
-</tr><tr><td><button    (click)="save()" routerLink="/person-search" [disabled]="!isValid()"> Zapisz</button></td><td><button  routerLink="/person-search">Anuluj</button></tr>
+</tr><tr><td>
+    <button    (click)="save()" routerLink="/person-search" [disabled]="!isValid()" *ngIf="!familyId"> Zapisz</button>
+    <button    (click)="save()" [routerLink]="'/family-search/'+familyId" [disabled]="!isValid()" *ngIf="!!familyId"> Zapisz</button></td>
+    <td>
+        <button  routerLink="/person-search" *ngIf="!familyId">Anuluj</button>
+        <button  [routerLink]="'/family-search/'+familyId" *ngIf="!!familyId">Anuluj</button></td></tr>
 
 </table>
 </fieldset>

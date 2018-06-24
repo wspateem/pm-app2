@@ -1,40 +1,14 @@
 
-<<<<<<< HEAD
-<mat-toolbar color="secondary">   
-  <button  routerLink="app-families-list" routerLinkActive="menu-active" *ngIf="!authInfo?.isLoggedIn()" >Kartoteka rodzinna</button> 
- </mat-toolbar><main class="l-main l-sample-app">
-
-
-<div>
-
- <div class="main-container">
-     <div class="list"  style="text-align: left">
-<table class="families-list card card-strong">
-  <tr class="family-summary" *ngFor="let family of (families$ | async)">
-   
-      <td class="lname">
-          {{family.lname}}, {{family.$key}}
-      </td>
-      <td>
-          <button  [routerLink]="family.$key">Szczegły</button>
-      </td>
-  </tr>
-</table>
-
-
-     </div>
-     </div>
-     </div>
-     </main>
-    
-=======
 <table class="table app-families-list card card-strong">
         <tr >
             <td class="lp" style="font-size: 10pt; font-weight: bold; width: 50px; border-style: none; text-align:center">
                 &nbsp; LP</td>
                 <td class="lp"style="font-size: 10pt; font-weight: bold; width: 50px; border-style: none; text-align:center">
                    Nazwisko Rodowe
-                </td>
+                </td> <td class="lp"style="font-size: 10pt; font-weight: bold; width: 50px; border-style: none; text-align:center">
+                        Notatki
+                     </td>
+                    
                
             </tr>
     <tr  *ngFor="let family of families; let i = index"  [routerLink]="family.$key">
@@ -42,7 +16,9 @@
       <td class="lp"style="font-size: 10pt; font-weight: bold; width: 50px; border-style: none; text-align:center">
           {{family.lname}}
       </td>
+      <td class="lp"style="font-size: 10pt; font-weight: bold; width: 50px; border-style: none; text-align:center">
+            {{family.description}}
+        </td>
      
   </tr>
 </table>
->>>>>>> 81526e695e1b0e0513596d524b2f5e385a75ad66

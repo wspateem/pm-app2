@@ -1,0 +1,93 @@
+<main class="l-main l-sample-app">
+
+
+  <div>
+
+      <div class="main-container" >
+          <div class="list2"  style="text-align: center">
+<div >
+  <div >
+    <div >
+      <button class="button" (click)="prevMonth()" >&lt;</button>
+      <span class="p4">&nbsp;{{montNames[(currentDate.format('M'))]}}&nbsp;</span>
+      <button class="button" (click)="nextMonth()">&gt;</button>
+    </div><div>&nbsp;</div>
+    <div >
+      <button class="button" (click)="prevYear()">&lt;</button>
+      <span>&nbsp;{{ currentDate.format('YYYY') }}&nbsp;</span>
+      <button class="button" (click)="nextYear()">&gt;</button>
+    </div>
+  </div>
+  <div><br></div>
+  <div ><table class="table calendar card card-strong ">
+    <tr>
+      <td *ngFor="let name of dayNames" style="width: 10%" >
+       <span *ngIf="name=='Niedziela'" style="color: red"> {{ name }} </span><span *ngIf="name!=='Niedziela'" style="color: black"> {{ name }} </span>
+      </td>
+   </tr>
+   
+      <tr *ngFor="let week of weeks" style="width: 100%" >
+        <td *ngFor="let day of week" style="width: 14%" (click)="selectDate(day)" >
+          <div  *ngIf="!isSelectedMonth(day.mDate)">
+            <span style="color: rgb(165, 165, 165)"  *ngIf = "day.mDate.weekday()!==0">{{ day.mDate.date() }}<div>&nbsp;</div></span>
+            <span style="color: rgb(231, 193, 193)"  *ngIf = "day.mDate.weekday()==0">{{ day.mDate.date() }}<div>&nbsp;</div></span>
+          </div>
+          <div  class="card"  onmouseover="this.style.backgroundColor='#666666'" onmouseout="this.style.backgroundColor='#FFFFFF'"
+               *ngIf="isSelectedMonth(day.mDate)"
+               
+               [ngClass]="{ today: day.today, selected: day.selected }" (click)="select (day.mDate)">
+            <span  style="color: rgb(252, 1, 1)" *ngIf = "day.mDate.weekday()==0">{{ day.mDate.date() }}<div >&nbsp;</div></span>
+            <span  style="color: rgb(0, 0, 0)" *ngIf = "day.mDate.weekday()!==0">{{ day.mDate.date() }}<div >&nbsp;</div>
+            
+            
+             
+
+
+            
+            </span>
+          </div>
+        </td>
+      </tr>
+   </table>
+</div>
+</div>
+
+<mat-card *ngFor="let event of events" class="event-card mat-elevation-z10">
+
+    <mat-card-header>
+
+        <mat-card-title>{{event.date}}</mat-card-title>
+
+    </mat-card-header>
+
+   
+
+    <mat-card-content>
+        <p>{{event.time}}</p>
+    </mat-card-content>
+    <mat-card-header>
+
+        <mat-card-title>{{event.description}}</mat-card-title>
+
+    </mat-card-header>
+
+    <mat-card-actions class="event-actions">
+
+        <button mat-button class="mat-raised-button mat-primary" [routerLink]="['/events', event.id]">
+            VIEW Event
+        </button>
+
+        <button mat-button class="mat-raised-button mat-accent"
+                (click)="editEvent(event)">
+            EDIT
+        </button>
+
+    </mat-card-actions>
+
+</mat-card>
+
+</div>
+</div>
+</div>
+
+</main>

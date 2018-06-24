@@ -6,6 +6,8 @@ import { Observable } from 'rxjs/Rx';
 import {Family} from "../prototype/family";
 import {FamiliesService} from '../families.service';
 import { Person } from '../../persons/prototype/person';
+import {AuthService} from '../../security/auth.service';
+import {AuthInfo} from '../../security/auth-info';
 
 @Component({
   selector: 'app-new-family',
@@ -18,7 +20,7 @@ export class NewFamilyComponent implements OnInit, OnChanges {
   familyId: string;
   family: Family;
   newFamily: Observable<Family>;
-
+  authInfo: AuthInfo;
 
   @Input()
   initialValue: any;
@@ -30,7 +32,8 @@ export class NewFamilyComponent implements OnInit, OnChanges {
     private db: AngularFireDatabase,
     private fb: FormBuilder) {
       this.form = this.fb.group({
-        lname: ['', [Validators.required, Validators.minLength(2)]]
+        lname: ['', [Validators.required, Validators.minLength(2)]],
+        description: ['']
       });
 
 
@@ -41,6 +44,7 @@ export class NewFamilyComponent implements OnInit, OnChanges {
       };
     }
   ngOnInit() {
+    window.scroll(0,0);
   }
   save(){
     const dataToSave = this.form.value;

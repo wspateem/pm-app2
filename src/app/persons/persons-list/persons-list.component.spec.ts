@@ -5,7 +5,7 @@ import { PersonsListComponent } from './persons-list.component';
 
 describe('Component: Persons', () => {
   it('should create an instance', () => {
-    let component = new PersonsListComponent();
+    let component = new PersonsComponent();
     expect(component).toBeTruthy();
   });
 });

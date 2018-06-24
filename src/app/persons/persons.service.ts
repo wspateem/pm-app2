@@ -11,51 +11,42 @@ import {FirebaseListFactoryOpts} from 'angularfire2/interfaces';
 
 
 
+
 @Injectable()
 export class PersonsService {
+    newpersonId: any;
     sdkDb: any;
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 81526e695e1b0e0513596d524b2f5e385a75ad66
     sdkDb2: any;
-
+    sdkDb3: any;
     constructor(private db: AngularFireDatabase, @Inject(FirebaseApp) fb: FirebaseApp,
     private http: Http) {
-<<<<<<< HEAD
 
 this.sdkDb = fb.database().ref('persons/');
-this.sdkDb2 = fb.database().ref();
+this.sdkDb2 = fb.database().ref('personsPerFamily/');
+this.sdkDb3 = fb.database();
 
 
 
 }
 
 
-=======
-=======
-  
-    constructor(private db: AngularFireDatabase, @Inject(FirebaseApp) fb: FirebaseApp,
-    private http: Http) {
-
-this.sdkDb = fb.database().ref('persons/');
->>>>>>> c44ffd47ea44a0aeb11fe03f615b1607a481705c
-
-this.sdkDb = fb.database().ref('persons/');
-this.sdkDb2 = fb.database().ref();
-
-
-<<<<<<< HEAD
-
-=======
->>>>>>> c44ffd47ea44a0aeb11fe03f615b1607a481705c
-}
-
-
->>>>>>> 81526e695e1b0e0513596d524b2f5e385a75ad66
     findAllPersons(): Observable<Person[]> {
-        return this.db.list('persons').pipe(map(Person.fromJsonArray));
+        return this.db.list('persons',{
+            query: {
+                orderByChild: 'lname'
+            }  
+        }).pipe(map(Person.fromJsonArray));
     }
+    findPersonByFamilyId(personFamilyId: string): Observable<Person> {
+        return this.db.list('persons', {
+            query: {
+                orderByChild: 'familyId',
+                equalTo: personFamilyId
+            }
+        }).pipe(
+        map(results => results[0]));
+    }
+  
 
 
     findPersonByLname(personLname: string): Observable<Person> {
@@ -130,7 +121,26 @@ firebaseUpdate(dataToSave) {
 
     return subject.asObservable();
 }
+firebaseUpdate2(dataToSave) {
+    const subject = new Subject();
 
+    this.sdkDb2.update(dataToSave)
+        .then(
+            val => {
+                subject.next(val);
+                subject.complete();
+
+
+            },
+            err => {
+                subject.error(err);
+                subject.complete();
+            }
+        );
+
+
+    return subject.asObservable();
+}
 sevePerson(personId: string, person): Observable<any> {
 
     const personToSave = Object.assign({}, person);
@@ -152,40 +162,49 @@ createNewPerson(person:any): Observable<any> {
     let dataToSave = {};
 
     dataToSave[ newPersonKey] = personToSave;
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 81526e695e1b0e0513596d524b2f5e385a75ad66
       return this.firebaseUpdate(dataToSave);
   }
   createNewPerson2(familyId:string, person:any): Observable<any> {
 
     const personToSave = Object.assign({}, person, {familyId});
 
-    const newPersonKey = this.sdkDb.push().key;
+    const newPersonKey = this.sdkDb2.push().key;
+    this.newpersonId = newPersonKey;
 
     let dataToSave = {};
 
     dataToSave[newPersonKey] = personToSave;
-    dataToSave[`personsPerFamily/${familyId}/${newPersonKey}`] = true;
+   
 
 
-    return this.firebaseUpdate(dataToSave);
+    return this.firebaseUpdate(dataToSave)&& this.createPersonPerFamily(this.newpersonId, familyId);
 }
 
-
-<<<<<<< HEAD
-=======
-=======
-  
+createPersonPerFamily(newPersonKey: string, familyId: string)  {
+        let dataToSave2 = {};      
+        let personToAdd = this.findPersonById(newPersonKey).subscribe(person => personToAdd = person);
 
 
-    return this.firebaseUpdate(dataToSave);
+        dataToSave2[`${familyId}/${newPersonKey}`]= true;
+
+        return this.firebaseUpdate2(dataToSave2);
+        
+
+
+}    
+deletepersonPerFamily(personId: string, familyId: string) {
+    const toDel = this.db.object(`personsPerFamily/${familyId}/${personId}`);
+    toDel.remove();
+    const toDel2 = this.db.object(`pesons/${personId}/familyId`);
+    this.db.object(`persons/${personId}`)
+    .update({ familyId: "" });  
     
-
 }
->>>>>>> c44ffd47ea44a0aeb11fe03f615b1607a481705c
->>>>>>> 81526e695e1b0e0513596d524b2f5e385a75ad66
+
+
+
+
+
 isPersonAlive(personId: string): Observable<Person> {
     return this.db.object(`persons/${personId}.alive`);
 }

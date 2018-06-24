@@ -1,0 +1,58 @@
+<h2>Nowa intencja</h2>
+<h3 mat-dialog-title>{{description}}</h3>
+
+<mat-dialog-content [formGroup]="form">
+
+    <mat-form-field>
+
+        <input matInput type="date"
+                placeholder="Data:"
+               formControlName="date">
+
+    </mat-form-field>
+
+    <mat-form-field>
+
+        <mat-select placeholder="godzina"
+            formControlName="time">
+
+            <mat-option value="9:00">
+                9:00</mat-option>
+            <mat-option value="11:00">
+                11:00</mat-option>
+            <mat-option value="17:00">
+                17:00</mat-option>
+                <mat-option value="18:00">
+                    18:00</mat-option>
+
+        </mat-select>
+
+    </mat-form-field>
+
+
+
+    <mat-form-field>
+
+        <textarea matInput placeholder="Opis"
+            formControlName="description">
+
+        </textarea>
+
+    </mat-form-field>
+
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+
+    <button class="mat-raised-button"
+            (click)="close()">
+        Close
+    </button>
+
+    <button class="mat-raised-button mat-primary"
+            (click)="save()">
+        Save
+    </button>
+
+</mat-dialog-actions>

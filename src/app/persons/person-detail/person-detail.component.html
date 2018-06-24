@@ -1,10 +1,12 @@
       
 
-     <mat-toolbar color="secondary">   
-         <button  routerLink="../../person-search" routerLinkActive="menu-active" *ngIf="!authInfo?.isLoggedIn()" >Kartoteka osobowa</button> 
+     <mat-toolbar color="secondary" >   
+         <button  routerLink="../../person-search" routerLinkActive="menu-active" *ngIf="!authInfo?.isLoggedIn()&&!familyId2">Kartoteka osobowa</button> 
+         <button   [routerLink]="'/family-search/'+familyId2" routerLinkActive="menu-active" *ngIf="!authInfo?.isLoggedIn()&&!!familyId2">Kartoteka rodzinna</button> 
         <button mat-button  routerLinkActive="menu-active" *ngIf="!authInfo?.isLoggedIn()" >-&nbsp;&nbsp;&nbsp; informacje o:&nbsp;  {{(person$ | async)?.lname}}  {{(person$ | async)?.fname}}</button>
+        <button  (click)="deletePerson()" *ngIf="!!familyId2">Usuń z rodziny</button>
     </mat-toolbar><main class="l-main l-sample-app">
-<main class="l-main l-sample-app">
+
 
     <div>
 
@@ -67,9 +69,11 @@
         <td><input name="title" type="text"  placeholder="{{(person$ | async)?.deathdate}}"  disabled><div>&nbsp;</div></td>
         
     </tr>
-    <tr><td><button    [routerLink]="person.$key"  *ngIf="!person.deathdate"> Edytuj</button></td><td><button  routerLink="../../person-search">Powrót</button></td>
+    <tr><td><button    [routerLink]="person.$key"  *ngIf="!person.deathdate&&!familyId2"> Edytuj</button>
+        <button    [routerLink]="person.$key" [queryParams]="{familyId2: familyId2 }" *ngIf="!person.deathdate&&!!familyId2"> Edytuj</button></td>
+        <td><button  routerLink="/person-search" *ngIf="!familyId2">Zamknij</button><button   [routerLink]="['/family-search', familyId2]" *ngIf="!!familyId2">Zamknij</button></td>
         <td><button  *ngIf="!person.deathdate" (click)="showPanel()">Druki</button></td>
-    </tr>
+        </tr>
    </fieldset>
     </table>
     <div *ngIf="!showHide&&!toBapDoc&&!toConDoc&&!toConToDoc&&!toComToDoc&&!toWedToDoc">

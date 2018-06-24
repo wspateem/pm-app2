@@ -6,7 +6,11 @@ import { Observable } from 'rxjs/Rx';
 
 import { PersonsService } from '../persons.service';
 import { Person } from '../prototype/person';
-import { DISABLED } from '@angular/forms/src/model';
+import { FamiliesService } from '../../families/families.service';
+import { Family } from '../../families/prototype/family';
+import {AuthService} from '../../security/auth.service';
+import {AuthInfo} from '../../security/auth-info';
+
 
 @Component({
   selector: 'app-new-person',
@@ -15,7 +19,7 @@ import { DISABLED } from '@angular/forms/src/model';
 })
 export class NewPersonComponent implements OnInit, OnChanges  {
   person$: Observable<Person>;
-  form: FormGroup;
+  form: FormGroup;  
   personId: string;
   person: Person;
   newPerson: Observable<Person>;
@@ -26,7 +30,8 @@ export class NewPersonComponent implements OnInit, OnChanges  {
   isCon=true;
   isWed=true;
   familyId: string;
-
+  family: Family;
+  authInfo: AuthInfo;
   @Input()
   initialValue: any;
 
@@ -34,6 +39,7 @@ export class NewPersonComponent implements OnInit, OnChanges  {
   constructor(private route: ActivatedRoute,
     private router: Router,
     private personsService: PersonsService,
+    private familiesService: FamiliesService,
     private db: AngularFireDatabase,
     private fb: FormBuilder) {
       this.form = this.fb.group({
@@ -53,10 +59,6 @@ export class NewPersonComponent implements OnInit, OnChanges  {
            deathdate: ['']
       });
 
-
-
-
-
    }
 
    ngOnChanges(changes: SimpleChanges) {
@@ -67,6 +69,7 @@ export class NewPersonComponent implements OnInit, OnChanges  {
 }
 
   ngOnInit() {
+    window.scroll(0,0);
     this.familyId = this.route.snapshot.queryParams['familyId'];
     console.log("family", this.familyId);
 }
@@ -74,6 +77,13 @@ isErrorVisible(field: string, error: string) {
   return this.form.controls[field].dirty
          && this.form.controls[field].errors &&
          this.form.controls[field].errors[error];
+}
+getFamilyName(familyId){
+  if(!!this.familyId){
+this.familiesService.findFamilyById(familyId).subscribe(family => this.family = family);
+return this.family.lname;
+    
+  }
 }
 save() {
     if (this.form.value.deathdate)
@@ -84,6 +94,7 @@ save() {
    
 
   });
+  
   if(this.familyId){
   this.form.patchValue({
     $exists: function () {},
@@ -106,7 +117,7 @@ save() {
 
 else {
   const dataToSave = this.form.value;
-  this.personsService.createNewPerson( dataToSave)
+  this.personsService.createNewPerson2('', dataToSave)
       .subscribe(
           () => {
               alert('Zachowano zmiany');

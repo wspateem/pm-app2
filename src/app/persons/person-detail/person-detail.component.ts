@@ -4,6 +4,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {PersonsService} from '../persons.service';
 import {Person} from '../prototype/person';
 import {Observable} from 'rxjs/Rx';
+import {AuthService} from '../../security/auth.service';
+import {AuthInfo} from '../../security/auth-info';
 
 import * as _ from 'lodash';
 import { browser } from 'protractor';
@@ -27,11 +29,13 @@ export class PersonDetailComponent implements OnInit {
   toComToDoc = false;
   toWedToDoc = false;
   toConDoc = false;
+familyId: string;
+familyId2: string;
   
   @Output()
   personEmitter = new EventEmitter<Person>();
     
-
+  authInfo: AuthInfo;
     constructor(private route: ActivatedRoute,
                 private router: Router,
                 private personsService: PersonsService) {
@@ -40,16 +44,17 @@ export class PersonDetailComponent implements OnInit {
 
 
     ngOnInit() {
-
+      window.scroll(0,0);
       this.personId = this.route.snapshot.params['id'];
-
+      this.familyId2 = this.route.snapshot.queryParams['familyId2'];
+     
       this.person$ = this.personsService.findPersonById(this.personId);
-      console.log(this.personId);
+
       this.myEvent(this.person$);
   }
 
   myEvent(event) {
-    console.log(event);
+
     this.personEmitter.emit(event);
   }
   showPanel(){
@@ -95,11 +100,35 @@ print() {
     </html>`
   );
   popupWin.document.close();
-  window.history.back();
+  if(!!this.familyId2){
+    this.showHide=true;
+    this.toBapDoc = false;
+    this.toConToDoc = false;
+    this.toComToDoc = false;
+    this.toWedToDoc = false;
+    this.toConDoc = false;
+  this.router.navigate(['/family-search', this.familyId2, this.personId + '?familyId2=' + this.familyId2]);
+
+  }
+  else{
+    this.showHide=true;
+    this.toBapDoc = false;
+    this.toConToDoc = false;
+    this.toComToDoc = false;
+    this.toWedToDoc = false;
+    this.toConDoc = false;
+    this.router.navigate(['/person-search', this.personId]);
+  }
 }
+deletePerson(){
+  this.personsService.deletepersonPerFamily(this.personId, this.familyId2);
+  this.router.navigate(['/family-search',this.familyId2]);
+
+}
+
 sex(val: string){
   if(val=="m"){
-  console.log(val);
+
     return true;
   }
   else

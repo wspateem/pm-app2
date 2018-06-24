@@ -3,6 +3,8 @@ import {FamiliesService} from '../families.service';
 import { Subject } from 'rxjs/Subject';
 import { Family } from '../prototype/family';
 import { tap } from 'rxjs/operators';
+import {AuthService} from '../../security/auth.service';
+import {AuthInfo} from '../../security/auth-info';
 
 @Component({
   selector: 'app-family-search',
@@ -12,11 +14,13 @@ import { tap } from 'rxjs/operators';
 export class FamilySearchComponent implements OnInit {
   allFamilies: Family[];
   filtered: Family[];
+  authInfo: AuthInfo;
   constructor(private familiesService: FamiliesService) { }
 
 
   
   ngOnInit() {
+    window.scroll(0,0);
     this.familiesService.findAllFamilies().pipe(
       tap(console.log)).subscribe(
           families => this.allFamilies = this.filtered = families

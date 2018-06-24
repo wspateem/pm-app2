@@ -1,8 +1,8 @@
 
 <mat-toolbar color="secondary">   
-  <button  routerLink="new" routerLinkActive="menu-active" *ngIf="!authInfo?.isLoggedIn()" >Nowa kartoteka osobowa</button> 
-
-</mat-toolbar><main class="l-main l-sample-app">
+        <button  routerLink="/family-search" routerLinkActive="menu-active" *ngIf="!authInfo?.isLoggedIn()" >Kartoteka rodzinna</button> 
+      
+      </mat-toolbar><main class="l-main l-sample-app">
 
 
 <div>
@@ -30,6 +30,15 @@
        </td>
          
        </tr>  
+       <tr><td><div>Notatki</div><div> &nbsp;</div></td>
+        <td> <input name="title" type="field" formControlName="description"  placeholder="Notatki">
+            <div> &nbsp;</div>
+        
+     
+        
+     </td>
+       
+     </tr> 
        <tr><td><button    (click)="save()" routerLink="/family-search" [disabled]="!form.controls.lname.valid"> Zapisz</button></td><td><button  routerLink="/family-search">Anuluj</button></tr>
 
     

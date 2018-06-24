@@ -1,7 +1,8 @@
     
 
 <mat-toolbar color="secondary">   
-        <button  routerLink="person-search" routerLinkActive="menu-active" *ngIf="!authInfo?.isLoggedIn()" >Kartoteka osobowa</button> 
+        <button  routerLink="/person-search" routerLinkActive="menu-active" *ngIf="!authInfo?.isLoggedIn()&&!familyId" >Kartoteka osobowa</button>
+        <button  [routerLink]="'/family-search/'+familyId" routerLinkActive="menu-active" *ngIf="!authInfo?.isLoggedIn()&&!!familyId" >Kartoteka rodzinna</button> 
        <button mat-button  routerLinkActive="menu-active" *ngIf="!authInfo?.isLoggedIn()" >-&nbsp;&nbsp;&nbsp; edycja:&nbsp;  {{(person$ | async)?.lname}}  {{(person$ | async)?.fname}}</button>
    </mat-toolbar><main class="l-main l-sample-app">
 
@@ -153,9 +154,11 @@
  
  </td>
     
- </tr><tr><td><button  (click)="save()" [routerLink]="['/person-search', personId]" *ngIf="!person.deathdate" [disabled]="!isValid()"> Zapisz</button>
+ </tr><tr><td><button  (click)="save()" [routerLink]="['/family-search', familyId, personId ]" [queryParams]="{familyId2: familyId }"*ngIf="!person.deathdate&&!!familyId" [disabled]="!isValid()">Zapisz</button>
+    <button  (click)="save()" [routerLink]="['/person-search', personId]" *ngIf="!person.deathdate&&!familyId" [disabled]="!isValid()"> Zapisz</button>
 
-</td><td><button  routerLink="/person-search">Anuluj</button></tr>
+</td><td><button [routerLink]="['/family-search', familyId, personId ]" [queryParams]="{familyId2: familyId }"*ngIf="!!familyId" >Anuluj</button>
+    <button   [routerLink]="['/person-search', personId]" *ngIf="!familyId" > Anuluj</button></td></tr>
   
   </table>
 </fieldset>
