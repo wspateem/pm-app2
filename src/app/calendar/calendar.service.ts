@@ -1,44 +1,70 @@
 
 import {mergeMap, filter, map, switchMap, tap} from 'rxjs/operators';
 import {Injectable, Inject} from '@angular/core';
-import {AngularFireDatabase} from 'angularfire2/database';
+import {AngularFireDatabase, FirebaseListObservable} from 'angularfire2/database';
 import {Observable, Subject} from 'rxjs/Rx';
 import {Event} from './prototype/event';
 import {FirebaseApp} from 'angularfire2';
 import {firebaseConfig} from '../../environments/firebase.config';
 import {Http} from '@angular/http';
 import {FirebaseListFactoryOpts} from 'angularfire2/interfaces';
+import { DatePipe } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CalendarService {
   sdkDb: any;
-  constructor(private db: AngularFireDatabase, @Inject(FirebaseApp) fb: FirebaseApp,
+   constructor(private db: AngularFireDatabase, @Inject(FirebaseApp) fb: FirebaseApp, private datePipe: DatePipe,
   private http: Http) {
     this.sdkDb = fb.database().ref('events/');
    }
-   findAllEvents(): Observable<Event[]> {
+
+findAllEvents(): Observable<Event[]> {
     return this.db.list('events',{
         query: {
-            orderByChild: 'date',
-            limitToFirst: 1
+            orderByChild: 'date'
+           
+
         }  
     }).pipe(map(Event.fromJsonArray));
 }
+
+findAllEvents2(): Observable<Event[]> {
+
+    return this.db.list('events',{
+        query: {
+            orderByChild: 'date',
+            startAt: this.datePipe.transform(Date.now(),"yyyy-MM-dd")
+
+        }  
+    }).pipe(map(Event.fromJsonArray));
+    
+}
+
+findEventsByDate(eventDate: string):FirebaseListObservable<Event[]> {
+    return this.db.list('events', {
+        query: {
+            orderByChild: 'date',
+            equalTo: eventDate
+        }
+  
+    });
+  }
 findEventById(eventId:string):Observable<Event> {
   return this.db.object(`events/${eventId}`)
   .map(Event.fromJson);
 }
-findEventByDate(eventDate: Date): Observable<Event> {
+findEventByDate(eventDate: string) {
   return this.db.list('events', {
       query: {
           orderByChild: 'date',
           equalTo: eventDate
       }
   }).pipe(
-  map(results => results[0]));
+  map(results => results));
 }
+
 firebaseUpdate(dataToSave) {
   const subject = new Subject();
 

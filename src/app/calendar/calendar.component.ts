@@ -6,11 +6,14 @@ import {switchMap} from 'rxjs/operators';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Observable} from 'rxjs/Rx';
 import { Event } from './prototype/event';
+import {tap} from 'rxjs/operators';
 import { CalendarService } from './calendar.service';
 import * as moment from 'moment';
 import * as _ from 'lodash';
 import {MatDialog, MatDialogConfig} from "@angular/material";
 import { DialogComponent } from './dialog/dialog.component';
+import { FirebaseListObservable } from 'angularfire2/database';
+import { EventsComponent} from './events/events.component';
 
 export interface CalendarDate {
  
@@ -21,23 +24,23 @@ export interface CalendarDate {
 
 @Component({
   selector: 'calendar',
-  templateUrl: './calendar.component.html',
+  templateUrl: './calendar.component.html'
 })
 export class CalendarComponent implements OnInit, OnChanges {
-
+  eventDate: moment.Moment;
   currentDate = moment();
   dayNames = ['Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'];
   montNames = ['', 'Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec', 'Lipiec', 'Sierpień', 'Wrzesień', 'Październik', 'Listopad', 'Grudzień'];
   weeks: CalendarDate[][] = [];
   sortedDates: CalendarDate[] = [];
   authInfo: AuthInfo;
-  events: Event[];
+  isTodayDay: boolean;
+  events$: FirebaseListObservable<Event[]>;
   event: Event;
-  newEvent = Event;
-  eventKey: string;
-  description: string;
   isHoliday: boolean;
   thisDate: Date;
+  isDate = false;
+  dateToString: string;
 
   @Input() 
     selectedDates: CalendarDate[] = [];
@@ -48,18 +51,16 @@ export class CalendarComponent implements OnInit, OnChanges {
   constructor(private route: ActivatedRoute,
     private router: Router,
     private dialog: MatDialog,
-    private calendarService: CalendarService,
+    private calendarService: CalendarService
     
 
   ) {}
 
   ngOnInit(): void {
+
     this.generateCalendar();
-    this.thisDate = this.currentDate.toDate();
-    this.calendarService.findAllEvents()
-    .subscribe(events => this.events = events
-      .filter(event => event.date === this.thisDate));
-      console.log("111111 " + this.events);
+    this.thisDate = this.currentDate.toDate();    
+  
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -69,7 +70,7 @@ export class CalendarComponent implements OnInit, OnChanges {
       // sort on date changes for better performance when range checking
       this.sortedDates = _.sortBy(changes.selectedDates.currentValue, (m: CalendarDate) => m.mDate.valueOf());
       this.generateCalendar();
-      this.firstMonth
+      
     }
   }
 
@@ -84,42 +85,42 @@ export class CalendarComponent implements OnInit, OnChanges {
       return moment(date).isSame(selectedDate.mDate, 'day');
     }) > -1;
   }
-findEvent(date: moment.Moment){
-  console.log(this.calendarService.findAllEvents()
-  .subscribe(events => this.events = events
-    .filter(event => event.date === date.toDate())));
-    console.log("222222 " + this.events);
- if(this.calendarService.findAllEvents()
-    .subscribe(events => this.events = events
-      .filter(event => event.date === date.toDate())))
-      return true;
-      else 
-      return false;
+
+findEvent(date: string){
+  this.events$ = this.calendarService.findEventsByDate(date);
+ 
 }
 
   select(date: moment.Moment){
    this.thisDate = date.toDate();
-   if(this.findEvent(date)){
-    alert("wybrano dzień z intencją");
-   }
+   this.dateToString = date.format("YYYY-MM-DD").toString();
+ 
+ 
+this.findEvent(this.dateToString);
+
+
+
+
     
-console.log(this.thisDate.toLocaleDateString());
-
-
     if(date.weekday()==0){
       let numberItems = 2;
-      this.openDialog();
-
-    alert("wybrano Niedzielę, " + this.thisDate.toLocaleDateString());
-    } else {
-      let numberItems = 1;
-        this.openDialog();
-   
-        
-    alert("wybrano dzień powszedni, " + this.thisDate.toLocaleDateString());}
     
 
+    //alert("wybrano Niedzielę, " + this.thisDate.toLocaleDateString());
+    this.isDate = true;
+    setTimeout(() =>this.openDialog(this.dateToString), 1000);
+  
+    } else {
+      let numberItems = 1;
+   
+   
+        
+   // alert("wybrano dzień powszedni, " + this.thisDate.toLocaleDateString());}
+
+    this.isDate = true;
+  setTimeout(() =>this.openDialog(this.dateToString), 1000);
   }
+}
 
   isSelectedMonth(date: moment.Moment): boolean {
     return moment(date).isSame(this.currentDate, 'month');
@@ -185,14 +186,16 @@ console.log(this.thisDate.toLocaleDateString());
               };
             });
   }
-  openDialog( ) {
+ /*
+  openDialog(events$: FirebaseListObservable<Event[]>) {
     const dialogConfig = new MatDialogConfig();
 
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
 
     dialogConfig.data = {
-      
+      events$: events$,
+    
       
      };
 
@@ -215,22 +218,37 @@ console.log(this.event);
     
 
 }
-  editEvent(event) {
+ */
+openDialog(date: string) {
+  const dialogConfig = new MatDialogConfig();
 
-    const dialogConfig = new MatDialogConfig();
+  dialogConfig.disableClose = true;
+  dialogConfig.autoFocus = true;
 
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
+  dialogConfig.data = {
+    date: date,
+    isToday: this.thisDate
+    
+   };
 
-    dialogConfig.data = event;
+ 
+  const dialogRef = this.dialog.open(DialogComponent,
+    dialogConfig);
+    let dataToSave ={};  
 
-    const dialogRef = this.dialog.open(DialogComponent,
-        dialogConfig);
+dialogRef.afterClosed().subscribe(
+    val => this.calendarService.createNewEvent(val)
+);
+dialogRef.afterClosed().subscribe(
+  val =>this.event = val); 
+console.log(this.event);
+if(!!dataToSave){
 
+  this.calendarService.createNewEvent(dataToSave);
+}
 
-    dialogRef.afterClosed().subscribe(
-        val => console.log("Dialog output:", val)
-    );
+  
 
 }
+
 }

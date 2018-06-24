@@ -1,0 +1,10 @@
+
+<table class="table app-dialog-list card card-strong" >
+  <tr>
+      <td style='width: 200px'>Data</td><td style='width: 200px'>Godzina</td><td style='width: 350px'>Intencja</td>
+  </tr>
+  <tr *ngFor="let event of events" (click)="open(event.$key)" >
+      <td style='width: 200px'>{{event.date}} </td><td style='width: 200px'>{{event.time}}</td><td style='width: 350px' >{{event.description}}</td>
+
+  </tr>
+</table>

@@ -18,6 +18,8 @@ import { FamilyDetailComponent } from './families/family-detail/family-detail.co
 import { NewFamilyComponent } from './families/new-family/new-family.component';
 import { FamilySearchComponent} from './families/family-search/family-search.component';
 import { CalendarComponent} from './calendar/calendar.component';
+import { EventsListComponent } from './calendar/events-list/events-list.component';
+import { EventSearchComponent } from './calendar/event-search/event-search.component';
 
 export const routerConfig: Route[] = [
     {
@@ -29,6 +31,17 @@ export const routerConfig: Route[] = [
         component: CalendarComponent,
         canActivate: [AuthGuard]
         },
+        {
+        path: 'events-list',
+        component: EventsListComponent,
+        canActivate: [AuthGuard]
+        },
+        {
+            path: 'event-search',
+            component: EventSearchComponent,
+            canActivate: [AuthGuard]
+        },
+        
     {
         path: 'login',
         component: LoginComponent

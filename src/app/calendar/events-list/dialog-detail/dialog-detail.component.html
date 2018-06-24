@@ -1,18 +1,17 @@
+<div *ngIf="!isVisibleAP">
+<div  *ngIf="event$ | async as event">
 
-<table class="table app-dialog-list card card-strong" *ngIf="!isVisibleAP">
-        <tr>
-            <td style='width: 200px'>Data</td><td style='width: 200px'>Godzina</td><td style='width: 350px'>Intencja</td>
-        </tr>
-        <tr *ngFor="let event of (events$ | async)" >
-            <td style='width: 200px'>{{event.date}} </td><td style='width: 200px'>{{event.time}}</td><td style='width: 350px' >{{event.description}}</td>
-    
-        </tr>
-    </table>
-
+        <table>
+                <tr>
+                    <td>{{event.date}}</td><td>&nbsp;&nbsp;</td><td>godzina: {{event.time}}</td>
+                </tr>
+            </table>
+    <h2>{{event.description}}</h2>
+</div></div>
+<div  *ngIf="event$ | async as event">
 <div *ngIf="!!isVisibleAP">
-<h3 mat-dialog-title>{{description}}</h3>
+<h3 mat-dialog-title>W dniu: {{event.date}}&nbsp;o godzinie: &nbsp;{{event.time}}</h3>
 
-<h2>Nowa intencja</h2>
 <mat-dialog-content [formGroup]="form">
         
 
@@ -20,7 +19,7 @@
 
                 <input matInput type="date"
                         placeholder=""
-                       formControlName="date">
+                       formControlName="date" disabled>
         
                        <div  class="field-error-message" *ngIf="!form.controls.date.valid && 
                        (form.controls.date.touched || form.controls.date.dirty)" style="font-size: xx-small">pole obowiązkowe
@@ -49,7 +48,7 @@
 
     <mat-form-field>
 
-        <textarea matInput placeholder="Opis"
+        <textarea  matInput placeholder="Opis"
             formControlName="description">
 
         </textarea>
@@ -60,20 +59,19 @@
 </mat-dialog-content>
 
 
-</div>
+</div></div>
 <mat-dialog-actions>
 
         <button class="mat-raised-button"
                 (click)="close()">
             Close
         </button>
-        <button class="mat-raised-button"
-        (click)="isVisible()" *ngIf="!isOK">
-    Add
-</button>
+
         <button class="mat-raised-button mat-primary"
-                (click)="save()" [disabled]="!form.valid">
+                (click)="save()" [disabled]="!form.valid" *ngIf="!!isVisibleAP">
             Save
         </button>
-    
+        <button class="mat-raised-button mat-primary" (click)="edit(event)" *ngIf="!isVisibleAP">
+    Edit
+</button>
     </mat-dialog-actions>

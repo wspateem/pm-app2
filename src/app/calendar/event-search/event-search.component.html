@@ -1,0 +1,20 @@
+<main class="l-main l-sample-app">      <div>
+    
+  <div class="main-container">
+      <div class="list3"  >
+          <h3 > <table ><tr><td>Szukaj: &nbsp; </td><td><input class="search-bar" placeholder=""(keyup)="search(input.value)" #input> </td></tr>
+            <tr><td></td><td><span style="font-size: x-small"> data (rrrr-mm-dd)</span>  </td></tr>
+             </table>    </h3></div>
+        <p>Klikni, żeby zobaczyć szczegóły.</p>
+        <div class="app-events-list-container v-h-center-block-parent">
+                    
+            <app-events-list *ngIf="filtered" [events]="filtered"></app-events-list>
+        
+        </div>
+        
+
+</div>
+
+</div>
+
+</main>

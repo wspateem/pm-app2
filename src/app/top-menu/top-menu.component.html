@@ -22,6 +22,7 @@
             <button mat-button routerLink="login" routerLinkActive="menu-active" *ngIf="!authInfo?.isLoggedIn()" >Logowanie</button>
             <button mat-button [matMenuTriggerFor]="kartMenu" *ngIf="authInfo?.isLoggedIn()">Kartoteki</button>
             <button mat-button routerLink="calendar" *ngIf="authInfo?.isLoggedIn()">Kalendarz</button>
+            <button mat-button routerLink="event-search" *ngIf="authInfo?.isLoggedIn()">Intencje lista</button>
             <button mat-button [matMenuTriggerFor]="adminMenu" *ngIf="authInfo?.isLoggedIn()" >Administracja</button>
             <button mat-button *ngIf="authInfo?.isLoggedIn()" (click)="logout()">Wyloguj się</button>
         </div>
@@ -36,14 +37,7 @@
         <button mat-menu-item routerLinkActive="menu-active" routerLink="family-search" *ngIf="authInfo?.isLoggedIn()">Rodzinna</button>
         
       </mat-menu>
-      <mat-menu   #ksieMenu="matMenu">
-          <button mat-menu-item routerLinkActive="menu-active" routerLink="on-login" *ngIf="authInfo?.isLoggedIn()" >Chrzty</button>
-          <button mat-menu-item routerLinkActive="menu-active" routerLink="on-login" *ngIf="authInfo?.isLoggedIn()" >I Komunia</button>
-          <button mat-menu-item routerLinkActive="menu-active" routerLink="on-login" *ngIf="authInfo?.isLoggedIn()" >Bierzmoawanie</button>
-          <button mat-menu-item routerLinkActive="menu-active" routerLink="on-login" *ngIf="authInfo?.isLoggedIn()" >Śluby</button>
-          <button mat-menu-item routerLinkActive="menu-active" routerLink="on-login" *ngIf="authInfo?.isLoggedIn()">Zgony</button>
-          
-        </mat-menu>
+
         <mat-menu  x-position="before"  #adminMenu="matMenu">
             <button mat-menu-item routerLinkActive="menu-active" routerLink="register" *ngIf="authInfo?.isLoggedIn()" >Dodaj użytkownika</button>
             <button mat-menu-item routerLinkActive="menu-active" routerLink="reset" *ngIf="authInfo?.isLoggedIn()" >Zmień hasło</button>
@@ -52,7 +46,9 @@
     <mat-menu x-position="before" #menu="matMenu">
         <button mat-menu-item routerLink="login" routerLinkActive="menu-active" *ngIf="!authInfo?.isLoggedIn()" >Logowanie</button>
        <button mat-menu-item [matMenuTriggerFor]="kartMenu" *ngIf="authInfo?.isLoggedIn()">Kartoteki</button>
-                <button mat-menu-item [matMenuTriggerFor]="ksieMenu" *ngIf="authInfo?.isLoggedIn()">Księgi</button>
+       <button mat-button routerLink="calendar" *ngIf="authInfo?.isLoggedIn()">Kalendarz</button>
+
+                <button mat-button routerLink="event-search" *ngIf="authInfo?.isLoggedIn()">Intencje lista</button>
                 <button mat-menu-item [matMenuTriggerFor]="adminMenu" *ngIf="authInfo?.isLoggedIn()">Administracja</button>
                 <button mat-menu-item *ngIf="authInfo?.isLoggedIn()" (click)="logout()">Wyloguj się</button>
         
