@@ -1,11 +1,33 @@
-
-
+.hollyday {
+    color: red;
+    }
+.mat-dialog-content {
+    min-width: 350px;
+    width: 100%;
+}
 .mat-form-field {
     
 }
 
 textarea {
     height: 100px;
-    resize: vertical;
-    width: 300px;
+    resize: horizontal;
+    width: 400px;
+}
+.mat-dial {
+    width: 100%;
+    min-width: 350px;
+}
+.date .time{
+    width: 25%;
+
+}
+.desc{
+    width: 50%;
+}
+.main {
+    min-width: 350px;
+    width: 600px;
+    max-width: 1800px;
+
 }

@@ -18,6 +18,8 @@ import {tap, concatAll} from 'rxjs/operators';
 export class DialogComponentDetail implements OnInit {
   form: FormGroup;
   event: Event;
+  event2: Event;
+  description:string;
   eventId: string;
   date: Date;
   time: string;
@@ -80,6 +82,11 @@ edit(){
     time: this.event.time
   });
 
+}
+remove()
+{
+  this.calendarService.deleteEvent(this.event.$key);
+  this.close();
 }
 
 

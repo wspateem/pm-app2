@@ -8,22 +8,38 @@ import {FirebaseApp} from 'angularfire2';
 import {firebaseConfig} from '../../environments/firebase.config';
 import {Http} from '@angular/http';
 import {FirebaseListFactoryOpts} from 'angularfire2/interfaces';
+import { DatePipe } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CalendarService {
   sdkDb: any;
-  constructor(private db: AngularFireDatabase, @Inject(FirebaseApp) fb: FirebaseApp,
+   constructor(private db: AngularFireDatabase, @Inject(FirebaseApp) fb: FirebaseApp, private datePipe: DatePipe,
   private http: Http) {
     this.sdkDb = fb.database().ref('events/');
    }
-   findAllEvents(): Observable<Event[]> {
+
+findAllEvents(): Observable<Event[]> {
     return this.db.list('events',{
         query: {
             orderByChild: 'date'
-           }  
+           
+
+        }  
     }).pipe(map(Event.fromJsonArray));
+}
+
+findAllEvents2(): Observable<Event[]> {
+
+    return this.db.list('events',{
+        query: {
+            orderByChild: 'date',
+            startAt: this.datePipe.transform(Date.now(),"yyyy-MM-dd")
+
+        }  
+    }).pipe(map(Event.fromJsonArray));
+    
 }
 
 findEventsByDate(eventDate: string):FirebaseListObservable<Event[]> {

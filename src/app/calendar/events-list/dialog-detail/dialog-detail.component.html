@@ -1,4 +1,4 @@
-<div *ngIf="!isVisibleAP">
+<div *ngIf="!isVisibleAP" calss="main">
 <div  *ngIf="event$ | async as event">
 
         <table>
@@ -10,51 +10,23 @@
 </div></div>
 <div  *ngIf="event$ | async as event">
 <div *ngIf="!!isVisibleAP">
-<h3 mat-dialog-title>W dniu: {{event.date}}&nbsp;o godzinie: &nbsp;{{event.time}}</h3>
+<h3 mat-dialog-title>W dniu: {{event.date}}&nbsp; o godzinie: {{event.time}}</h3>
 
-<mat-dialog-content [formGroup]="form">
-        
-
-        <mat-form-field>
-
-                <input matInput type="date"
-                        placeholder=""
-                       formControlName="date" disabled>
-        
-                       <div  class="field-error-message" *ngIf="!form.controls.date.valid && 
-                       (form.controls.date.touched || form.controls.date.dirty)" style="font-size: xx-small">pole obowiązkowe
-                       </div>
-            </mat-form-field>
-    <mat-form-field>
-       
-
-        <mat-select placeholder="godzina"
-            formControlName="time">
-
-            <mat-option value="9:00">
-                9:00</mat-option>
-            <mat-option value="11:00">
-                11:00</mat-option>
-            <mat-option value="17:00">
-                17:00</mat-option>
-                <mat-option value="18:00">
-                    18:00</mat-option>
-
-        </mat-select>
-
-    </mat-form-field>
+<mat-dialog-content [formGroup]="form" calss="mat-dial">
 
 
 
-    <mat-form-field>
+<p>
 
-        <textarea  matInput placeholder="Opis"
+    <mat-form-field style="width:100%">
+
+        <textarea  matInput placeholder="Opis" style="width:100%"
             formControlName="description">
 
         </textarea>
 
     </mat-form-field>
-
+</p>
 
 </mat-dialog-content>
 
@@ -64,14 +36,17 @@
 
         <button class="mat-raised-button"
                 (click)="close()">
-            Close
+            Zamknij
         </button>
 
-        <button class="mat-raised-button mat-primary"
+        <button class="mat-raised-button "
                 (click)="save()" [disabled]="!form.valid" *ngIf="!!isVisibleAP">
-            Save
+            Zapisz
         </button>
-        <button class="mat-raised-button mat-primary" (click)="edit(event)" *ngIf="!isVisibleAP">
-    Edit
+        <button class="mat-raised-button " (click)="edit(event)" *ngIf="!isVisibleAP">
+    Edytuj
 </button>
-    </mat-dialog-actions>
+<button class="mat-raised-button " (click)="remove()" *ngIf="!isVisibleAP">
+        Usuń
+    </button>
+</mat-dialog-actions>

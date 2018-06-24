@@ -9,6 +9,7 @@ import {FormBuilder, Validators, FormGroup} from "@angular/forms";
 import {ActivatedRoute, Router} from '@angular/router';
 import * as moment from 'moment';
 import {Observable} from 'rxjs/Rx';
+import { DatePipe } from '@angular/common';
 import {tap, concatAll} from 'rxjs/operators';
 @Component({
   selector: 'app-dialog',
@@ -26,7 +27,8 @@ export class DialogComponent implements OnInit {
   dateString: string;
   isVisibleAP= false;
   currentDate: Date;
- isOk = false;
+  hollyday: boolean;
+ isOk = true;
   authInfo: AuthInfo;
   @Input()
   eventKey: string;
@@ -35,13 +37,14 @@ export class DialogComponent implements OnInit {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
+    private datePipe: DatePipe,
     private db: AngularFireDatabase,
     private calendarService: CalendarService,
     private dialogRef: MatDialogRef<DialogComponent>,
     @Inject(MAT_DIALOG_DATA) data) {
      
-      this.dateString = data['date'];
-    this.currentDate = data['isToday'];
+      this.date = data['date'];
+      this.hollyday = data['hollyday'];
 
        
         this.form = fb.group({
@@ -52,22 +55,13 @@ export class DialogComponent implements OnInit {
       }
 
   ngOnInit() {
+this.dateString = this.datePipe.transform(this.date,"yyyy-MM-dd");
 
 this.findEvent(this.dateString);
- this.date = new Date();
- console.log(this.currentDate.getFullYear());
- console.log(this.date.getFullYear());
- console.log(this.currentDate.getMonth());
- console.log(this.date.getMonth());
- console.log(this.currentDate.getDate());
- console.log(this.date.getDate());
- if((this.currentDate.getFullYear() < this.date.getFullYear())||
- ((this.currentDate.getFullYear() >= this.date.getFullYear())&&(this.currentDate.getMonth() < this.date.getMonth()))||
- (((this.currentDate.getFullYear() >= this.date.getFullYear())&&(this.currentDate.getMonth() >= this.date.getMonth()))&&
- (this.currentDate.getDate() < this.date.getDate())))
- this.isOk=true;
 
-console.log(this.isOk + "cwdcwcw");
+if(this.datePipe.transform(this.date,"yyyy-MM-dd")>=this.datePipe.transform(Date.now(),"yyyy-MM-dd"))
+ this.isOk=false;
+
 
 
 this.form.patchValue({
@@ -75,7 +69,7 @@ this.form.patchValue({
 date: this.dateString
 
 });
-console.log(this.form.valid)
+
   }
   show(event: Event){
 

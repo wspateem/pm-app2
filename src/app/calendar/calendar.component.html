@@ -6,10 +6,10 @@
       <div class="main-container" >
           <div class="list2"  style="text-align: center">
 <div >
-  <div >
-    <div >
+  <div class="month">
+    <div  >
       <button class="button" (click)="prevMonth()" >&lt;</button>
-      <span class="p4">&nbsp;{{montNames[(currentDate.format('M'))]}}&nbsp;</span>
+      <span>&nbsp;{{montNames[(currentDate.format('M'))]}}&nbsp;</span>
       <button class="button" (click)="nextMonth()">&gt;</button>
     </div><div>&nbsp;</div>
     <div >
@@ -22,22 +22,28 @@
   <div ><table >
     <tr>
       <td *ngFor="let name of dayNames" style="width: 10%" >
-       <span *ngIf="name=='Niedziela'" style="color: red"> {{ name }} </span><span *ngIf="name!=='Niedziela'" style="color: black"> {{ name }} </span>
+       <span *ngIf="name=='Niedziela'" class="isSunday"> {{ name }} </span><span *ngIf="name!=='Niedziela'" class="isNotSunday"> {{ name }} </span>
       </td>
    </tr>
    
       <tr *ngFor="let week of weeks" style="width: 100%" >
         <td *ngFor="let day of week" style="width: 14%" (click)="selectDate(day)" >
-          <div  *ngIf="!isSelectedMonth(day.mDate)">
-            <span style="color: rgb(165, 165, 165)"  *ngIf = "day.mDate.weekday()!==0">{{ day.mDate.date() }}<div>&nbsp;</div></span>
-            <span style="color: rgb(231, 193, 193)"  *ngIf = "day.mDate.weekday()==0">{{ day.mDate.date() }}<div>&nbsp;</div></span>
+          <div  *ngIf="!isSelectedMonth(day.mDate)" >
+            <span class="isNotSundayNA"  *ngIf = "day.mDate.weekday()!==0">{{ day.mDate.date() }}<div>&nbsp;</div></span>
+            <span class="isSundayNA"  *ngIf = "day.mDate.weekday()==0">{{ day.mDate.date() }}<div>&nbsp;</div></span>
           </div>
-          <div  class=" "  onmouseover="this.style.backgroundColor='#666666'" onmouseout="this.style.backgroundColor='#fafafa'"
+          <div  class=""  onmouseover="this.style.backgroundColor='#666666'" onmouseout="this.style.backgroundColor='#fafafa'"
                *ngIf="isSelectedMonth(day.mDate)"
                
-               [ngClass]="{ today: day.today, selected: day.selected }" (click)="select (day.mDate)">
-            <span  style="color: rgb(252, 1, 1)" *ngIf = "day.mDate.weekday()==0">{{ day.mDate.date() }}<div >&nbsp;</div></span>
-            <span  style="color: rgb(0, 0, 0)" *ngIf = "day.mDate.weekday()!==0">{{ day.mDate.date() }}<div >&nbsp;</div>
+               [ngClass]="{ today: day.today, selected: day.selected, hollyday: day.hollyday, isSunday:  day.mDate.weekday()==0}" (click)="select (day)">
+                 <span >{{ day.mDate.date() }}<br><p><div class="event"><span *ngFor="let event of (day.events$ | async)"   [matTooltip]="'Godzina '+event.time+': '+event.description">
+                   <svg height="8" width="8">
+                    <circle cx="4" cy="4" r="4" stroke="black" stroke-width="0" fill="red"  *ngIf="day.hollyday || day.mDate.weekday()==0" />
+                    <circle cx="4" cy="4" r="4" stroke="black" stroke-width="0" fill="black"  *ngIf="!day.hollyday && day.mDate.weekday()!==0" />
+                    Sorry, your browser does not support inline SVG.  
+                  </svg> 
+                
+                </span></div>
             
             
              

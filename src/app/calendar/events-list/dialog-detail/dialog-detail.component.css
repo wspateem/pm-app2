@@ -1,11 +1,30 @@
 
-
+.mat-dialog-content {
+    min-width: 300px;
+    width: 100%;
+}
 .mat-form-field {
     
 }
 
 textarea {
-    height: 50px;
+    height: 100px;
     resize: horizontal;
-    width: 500px;
+    width: 400px;
+}
+.mat-dial {
+    width: 100%;
+    min-width: 350px;
+}
+.date .time{
+    width: 25%;
+
+}
+.desc{
+    width: 50%;
+}
+.main {
+    min-width: 350px;
+    max-width: 1800px;
+    width: 600px;
 }

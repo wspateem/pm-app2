@@ -1,15 +1,38 @@
+.event {
+  color: green;
+  font-size: x-small;
 
-/***
-* CSS3 FLIP CARDS
-* Markup for an element that a user can hover to reveal content on the back, like a card
-* Browser Support: Safari, Firefox, Chrome, IE8+, and Touch Devices; (IE9 and below will not have any flip effect but will just change on hover)
-***/
+  height:3em;
+ 
+  }
+.isSunday {
+  color: red;
+}
+.hollyday {
+color: red;
+}
+.isNotSunday {
+  color: black;
+}
+.today {
+
+  color: blue ;
+}
+.isSundayNA {
+  color: rgb(241, 193, 193);
+}
+.isNotSundayNa {
+color: lightgray;
+}
 .fill-remaining-space {
   /*This fills the remaining space, by using flexbox.  
  Every toolbar row uses a flexbox row layout. */
  flex: 1 1 auto;
 }
+.month {
+  text-shadow: gray;
 
+}
 .event-card {
   margin: 20px 10px;
 }
@@ -69,8 +92,7 @@
     -webkit-transform: perspective(300) rotateY(0deg);
     transform: perspective(300) rotateY(0deg);
   }
-  
-  /*** Just for show... ***/
+
   .flip-card {
     text-shadow: 1px 1px 0 rgba(14, 85, 143, 0.8);
     color: #fff;
@@ -150,3 +172,4 @@
     cursor: pointer;
     border: none;
      }
+     
