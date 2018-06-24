@@ -13,7 +13,6 @@ import * as _ from 'lodash';
 import {MatDialog, MatDialogConfig} from "@angular/material";
 import { DialogComponent } from './dialog/dialog.component';
 import { FirebaseListObservable } from 'angularfire2/database';
-import { EventsComponent} from './events/events.component';
 
 export interface CalendarDate {
  
@@ -24,10 +23,10 @@ export interface CalendarDate {
 
 @Component({
   selector: 'calendar',
-  templateUrl: './calendar.component.html'
+  templateUrl: './calendar.component.html',
 })
 export class CalendarComponent implements OnInit, OnChanges {
-  eventDate: moment.Moment;
+
   currentDate = moment();
   dayNames = ['Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'];
   montNames = ['', 'Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec', 'Lipiec', 'Sierpień', 'Wrzesień', 'Październik', 'Listopad', 'Grudzień'];

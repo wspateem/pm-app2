@@ -36,7 +36,7 @@
                *ngIf="isSelectedMonth(day.mDate)"
                
                [ngClass]="{ today: day.today, selected: day.selected }" (click)="select (day.mDate)">
-            <span  style="color: rgb(252, 1, 1)" *ngIf = "day.mDate.weekday()==0">{{ day.mDate.date() }}<div ><app-events [eventDate]="day.mDate"></app-events></div></span>
+            <span  style="color: rgb(252, 1, 1)" *ngIf = "day.mDate.weekday()==0">{{ day.mDate.date() }}<div >&nbsp;</div></span>
             <span  style="color: rgb(0, 0, 0)" *ngIf = "day.mDate.weekday()!==0">{{ day.mDate.date() }}<div >&nbsp;</div>
             
             

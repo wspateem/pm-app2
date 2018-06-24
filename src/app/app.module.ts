@@ -37,8 +37,6 @@ import { FamilySearchComponent } from './families/family-search/family-search.co
 import { CalendarModule } from 'angular-calendar';
 import { CalendarComponent } from './calendar/calendar.component';
 import { DialogComponent } from './calendar/dialog/dialog.component';
-import { DialogComponentDetail } from './calendar/events-list/dialog-detail/dialog-detail.component';
-import {DatePipe} from '@angular/common';
 import {
   MatDatepickerModule,
   MatNativeDateModule,
@@ -53,9 +51,6 @@ import {
   MatTableModule,
   MatToolbarModule
   } from "@angular/material";
-import { EventsListComponent } from './calendar/events-list/events-list.component';
-import { EventSearchComponent } from './calendar/event-search/event-search.component';
-import { EventsComponent } from './calendar/events/events.component';
 
 
 
@@ -79,11 +74,7 @@ import { EventsComponent } from './calendar/events/events.component';
     NewFamilyComponent,
     FamilySearchComponent,
     CalendarComponent,
-     DialogComponent,
-     DialogComponentDetail,
-     EventsListComponent,
-     EventSearchComponent,
-     EventsComponent
+     DialogComponent
   ],
   imports: [
     BrowserModule,
@@ -115,9 +106,9 @@ import { EventsComponent } from './calendar/events/events.component';
     MatTableModule,
     MatToolbarModule
   ],
-  providers: [AuthService, AuthGuard, PersonsService, PersonResolver, FamiliesService, CalendarService,DatePipe],
+  providers: [AuthService, AuthGuard, PersonsService, PersonResolver, FamiliesService, CalendarService],
   bootstrap: [AppComponent],
-  entryComponents: [DialogComponent, DialogComponentDetail]
+  entryComponents: [DialogComponent]
 })
 export class AppModule { }
 
