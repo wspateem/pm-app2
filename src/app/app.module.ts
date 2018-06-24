@@ -19,11 +19,12 @@ import { AngularFireDatabaseModule} from 'angularfire2/database';
 import { AngularFireAuthModule} from 'angularfire2/auth';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
-import { MatMenuModule, MatButtonModule, MatIconModule, MatCardModule } from '@angular/material';
+import { MatMenuModule, MatButtonModule, MatIconModule, MatCardModule, MatTabsModule } from '@angular/material';
 import { ResetComponent } from './reset/reset.component';
 import { FlexLayoutModule} from '@angular/flex-layout';
 import { PersonsListComponent } from './persons/persons-list/persons-list.component';
 import { PersonsService } from './persons/persons.service';
+import { CalendarService} from './calendar/calendar.service';
 import { NewPersonComponent } from './persons/new-person/new-person.component';
 import { PersonFormComponent } from './persons/person-form/person-form.component';
 import { PersonDetailComponent } from './persons/person-detail/person-detail.component';
@@ -31,12 +32,27 @@ import { PersonSearchComponent } from './persons/person-search/person-search.com
 import { FamiliesListComponent } from './families/families-list/families-list.component';
 import { FamiliesService} from './families/families.service';
 import { FamilyDetailComponent } from './families/family-detail/family-detail.component';
-<<<<<<< HEAD
-=======
 import { NewFamilyComponent } from './families/new-family/new-family.component';
 import { FamilySearchComponent } from './families/family-search/family-search.component';
-import { PersonFamilyComponent } from './persons/person-family/person-family.component';
->>>>>>> 81526e695e1b0e0513596d524b2f5e385a75ad66
+import { CalendarModule } from 'angular-calendar';
+import { CalendarComponent } from './calendar/calendar.component';
+import { DialogComponent } from './calendar/dialog/dialog.component';
+import {
+  MatDatepickerModule,
+  MatNativeDateModule,
+  MatDialogModule,
+  MatInputModule, 
+  MatListModule, 
+  MatPaginatorModule, 
+  MatProgressSpinnerModule, 
+  MatSelectModule, 
+  MatSidenavModule,
+  MatSortModule,
+  MatTableModule,
+  MatToolbarModule
+  } from "@angular/material";
+
+
 
 
 @NgModule({
@@ -54,14 +70,11 @@ import { PersonFamilyComponent } from './persons/person-family/person-family.com
     PersonDetailComponent,
     PersonSearchComponent,
     FamiliesListComponent,
-<<<<<<< HEAD
-    FamilyDetailComponent
-=======
     FamilyDetailComponent,
     NewFamilyComponent,
     FamilySearchComponent,
-    PersonFamilyComponent
->>>>>>> 81526e695e1b0e0513596d524b2f5e385a75ad66
+    CalendarComponent,
+     DialogComponent
   ],
   imports: [
     BrowserModule,
@@ -69,6 +82,7 @@ import { PersonFamilyComponent } from './persons/person-family/person-family.com
       AngularFireDatabaseModule,
       AngularFireAuthModule,
       RouterModule.forRoot(routerConfig),
+      CalendarModule.forRoot(),
       ReactiveFormsModule,
       HttpModule,
       BrowserAnimationsModule,
@@ -77,10 +91,24 @@ import { PersonFamilyComponent } from './persons/person-family/person-family.com
     MatButtonModule,
     MatIconModule,
     MatCardModule,
-    FlexLayoutModule
+    MatTabsModule,
+    FlexLayoutModule,
+    MatDialogModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatInputModule, 
+    MatListModule, 
+    MatPaginatorModule, 
+    MatProgressSpinnerModule, 
+    MatSelectModule, 
+    MatSidenavModule,
+    MatSortModule,
+    MatTableModule,
+    MatToolbarModule
   ],
-  providers: [AuthService, AuthGuard, PersonsService, PersonResolver, FamiliesService],
-  bootstrap: [AppComponent]
+  providers: [AuthService, AuthGuard, PersonsService, PersonResolver, FamiliesService, CalendarService],
+  bootstrap: [AppComponent],
+  entryComponents: [DialogComponent]
 })
 export class AppModule { }
 
